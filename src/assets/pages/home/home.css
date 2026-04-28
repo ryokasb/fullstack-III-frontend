@@ -1,0 +1,85 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  background: linear-gradient(135deg,
+   #04071b, 
+   #1a2a6c, 
+   #04071b);
+}
+
+/*link o contenido de interes*/
+#links { 
+  display: flex;
+  justify-content: center; /* centra el grupo */
+  gap: 100px;               /* espacio pequeño entre links */
+  padding: 40px 40px;         /* espacio izquierda y derecha */
+}
+.button-hero{
+    padding: 10px;
+    width: 120px;
+   background: linear-gradient(
+    to right,
+     #794705 0%,     /* dorado oscuro izquierda */
+     #ff9100 50%,    /* dorado brillante centro */
+     #794705 100%    /* dorado oscuro derecha */
+    );
+    border-radius: 6px;
+    border: none;
+}
+.button-hero:hover {
+  transform: translateY(-1px); /* levanta el botón */
+  box-shadow: 0 0 20px rgba(255, 145, 0, 0.5);
+  border-color: #ff9100;
+  cursor: pointer;
+}
+#links svg {
+  font-size: 100px;
+  color: #a1671a;
+  margin-bottom: 10px;
+}
+#links button {
+  position: relative;
+  background-color: #111e53;
+  color: rgb(163, 163, 163);
+  font-size: 20px;
+  
+  border-radius: 6px;
+  border: 2px solid #a1671a;
+  width: 500px;
+  height: 200px;
+}
+
+#links button::before {
+  content: "";
+  position: absolute;
+  top: -2px;              /* misma altura del borde */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;           /* tamaño del corte */
+  height: 4px;
+  background-color: #111e53 /* mismo fondo del botón */
+}
+
+#links button:hover {
+  transform: translateY(-5px); /* levanta el botón */
+  box-shadow: 0 0 20px rgba(255, 145, 0, 0.5);
+  border-color: #ff9100;
+  color: white;
+  cursor: pointer;
+}
+/*link o contenido de interes*/
+
+#hero {
+  padding: 50px 20px;
+  border-top: 2px solid #04071b;
+  border-bottom: 2px solid #04071b;
+  background: linear-gradient(135deg,
+   #04071b, 
+   #1a2a6c, 
+   #04071b);
+  color: white;
+  text-align: left;
+}
+.title-hero{
+    font-size: 30px;
+}
