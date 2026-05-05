@@ -3,7 +3,7 @@ html, body {
   height: 100%;
   background: linear-gradient(135deg,
    #04071b, 
-   #1a2a6c, 
+   #13256d, 
    #04071b);
 }
 
@@ -25,9 +25,11 @@ html, body {
     );
     border-radius: 6px;
     border: none;
+    transform: translateX(60px);
 }
 .button-hero:hover {
   transform: translateY(-1px); /* levanta el botón */
+  transform: translateX(60px);
   box-shadow: 0 0 20px rgba(255, 145, 0, 0.5);
   border-color: #ff9100;
   cursor: pointer;
@@ -47,6 +49,7 @@ html, body {
   border: 2px solid #a1671a;
   width: 500px;
   height: 200px;
+  
 }
 
 #links button::before {
@@ -59,6 +62,18 @@ html, body {
   height: 4px;
   background-color: #111e53 /* mismo fondo del botón */
 }
+.ofertas-logo{
+  height: 200px;
+  transform: translatey(-30px);
+}
+.nllogo{
+  height: 200px;
+  transform: translatey(-50px);
+}
+.Jplogo{
+  height: 170px;
+  transform: translatey(-30px);
+}
 
 #links button:hover {
   transform: translateY(-5px); /* levanta el botón */
@@ -70,16 +85,23 @@ html, body {
 /*link o contenido de interes*/
 
 #hero {
-  padding: 50px 20px;
+  padding:100px 20px;
   border-top: 2px solid #04071b;
   border-bottom: 2px solid #04071b;
-  background: linear-gradient(135deg,
-   #04071b, 
-   #1a2a6c, 
-   #04071b);
+  background-image: url('../../img/hero-bg.png');
+  background-size: cover;      /* ocupa todo */
+  background-position: center; /* centrada */
+  background-repeat: no-repeat;
+  
   color: white;
   text-align: left;
 }
+
+
 .title-hero{
-    font-size: 30px;
+    font-size: 40px;
+    transform: translateX(60px);
+}
+.hero-subtitle{
+ transform: translateX(60px);
 }

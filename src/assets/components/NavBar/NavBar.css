@@ -1,14 +1,39 @@
 /* NavBar.css */
 
+.button-iniciosesion{
+    width: 200px;
+    height: 40px;
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    background: linear-gradient(
+        to right,
+        #794705 0%,
+        #ff9100 50%,
+        #794705 100%
+    );
+
+    border-radius: 6px;
+    border: none;
+    padding: 0;
+}
+.barra-navegacion {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.button-iniciosesion:hover {
+  transform: translateY(-1px); /* levanta el botón */
+  border-color: #ff9100;
+  cursor: pointer;
+}
 .barra-navegacion {
   display: flex;
   justify-content:flex-start;
   align-items: center;
- background: linear-gradient(135deg,
-   #04071b, 
-   #1a2a6c, 
-   #04071b);
+ background-color: #061041ab;
   gap: 100px;
     
   padding: 0 40px;
@@ -20,10 +45,9 @@
 
 /* Logo */
 .logo-izquierda img {
-  height: 50px;
+  height: 90px;
   cursor: pointer;
   border-radius: 16px;
-  
 }
 
 /* Lista */
@@ -35,7 +59,7 @@
 
 /* Items */
 .barra-navegacion li {
-  font-size: 15px;
+  font-size: 18px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   cursor: pointer;
   color: #fff;
@@ -63,6 +87,13 @@
 .barra-navegacion li:hover::after {
   width: 100%;
 }
+ .carrito svg {
+  color:white;
+}
+ .carrito svg:hover {
+  color: #38bdf8; /* celeste brillante */
+}
+
 .busqueda {
   display: flex;
   justify-content: center;
@@ -71,7 +102,7 @@
 
 /* Input */
 .busqueda input {
-  width: 400px;
+  width: 500px;
   padding: 15px;
   border-radius: 15px;
   border: none;

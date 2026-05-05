@@ -3,6 +3,9 @@ import Footer from '../../components/Footer/Footer'
 import { MdLocalOffer } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa";
 import { GiLaurelsTrophy } from "react-icons/gi";
+import Ofertalogo from "../../img/iconos-links/ofertas-logo.png";
+import Nllogo from "../../img/iconos-links/nl-logo.png";
+import Jplogo from "../../img/iconos-links/jp-logo.png";
 export default function home(){
 
 
@@ -11,10 +14,10 @@ return(
 <>
     <section id="hero">
       <div className='text-content'>
-          <h3 className='title-hero'>Descubre Los <br/> Mejores Juegos</h3>
-        <p>Explora nuestra tienda y encuentra increibles<br/>
+          <h3 className='title-hero'>Descubre los <br/> mejores juegos</h3>
+        <p className='hero-subtitle'>Explora nuestra tienda y encuentra increibles<br/>
             ofertas en los ultimos y mejores Videojuegos
-          </p>
+        </p>
           <button className='button-hero'>Ver Ofertas</button>
       </div>
     </section>
@@ -23,15 +26,15 @@ return(
 
 
       <article>
-        <button><MdLocalOffer/><h3>Ofertas</h3></button>
+        <button><img className='ofertas-logo' src={Ofertalogo} alt="" /></button>
       </article>
 
       <article>
-        <button><FaBoxOpen/><h3>Nuevos Lanzamientos</h3></button>
+        <button><img className='nllogo' src={Nllogo} alt="" /></button>
       </article>
 
       <article>
-        <button><GiLaurelsTrophy/><h3>Juegos Populares</h3></button>
+        <button><img className='Jplogo' src={Jplogo} alt="" /></button>
       </article>
 
     </section>
