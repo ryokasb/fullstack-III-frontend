@@ -105,3 +105,210 @@ html, body {
 .hero-subtitle{
  transform: translateX(60px);
 }
+/*seccion card de juegos destacados*/
+#games {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+#games h3 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.games-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 145, 0, 0.25);
+  border-radius: 18px;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  transition: 0.3s ease;
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+}
+.game-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(255, 145, 0, 0.25);
+}
+
+.game-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.game-card h4 {
+  color: white;
+  margin: 10px 0;
+}
+
+.game-card p {
+  color: #ff9100;
+  font-weight: bold;
+}
+
+.game-card button {
+  margin-top: auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background: linear-gradient(
+    to right,
+    #794705 0%,
+    #ff9100 50%,
+    #794705 100%
+  );
+
+  color: white;
+}
+/*resposive*/
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+
+  .games-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #links {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  #links button {
+    width: 320px;
+    height: 180px;
+  }
+
+  .title-hero,
+  .hero-subtitle,
+  .button-hero {
+    transform: none;
+  }
+
+  .title-hero {
+    font-size: 32px;
+  }
+}
+
+
+/* ================= MOVIL ================= */
+@media (max-width: 768px) {
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  #hero {
+    padding: 70px 20px;
+    text-align: center;
+    background-position: center;
+  }
+
+  .title-hero {
+    font-size: 26px;
+    transform: none;
+  }
+
+  .hero-subtitle {
+    transform: none;
+    font-size: 14px;
+  }
+
+  .button-hero {
+    transform: none;
+    width: 140px;
+    margin-top: 20px;
+  }
+
+  .button-hero:hover {
+    transform: translateY(-2px);
+  }
+
+
+  /* LINKS */
+  #links {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 20px;
+  }
+
+  #links button {
+    width: 90%;
+    max-width: 320px;
+    height: 160px;
+    font-size: 16px;
+  }
+
+  #links svg {
+    font-size: 70px;
+  }
+
+  .ofertas-logo,
+  .nllogo,
+  .Jplogo {
+    height: 120px;
+    transform: none;
+  }
+
+
+  /* GAMES */
+  #games {
+    padding: 50px 20px;
+  }
+
+  .games-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .game-card {
+    height: auto;
+    min-height: 420px;
+  }
+
+  .game-card img {
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  #games h3 {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* ================= MOVILES PEQUEÑOS ================= */
+@media (max-width: 480px) {
+
+  .title-hero {
+    font-size: 22px;
+  }
+
+  #links button {
+    height: 140px;
+    font-size: 14px;
+  }
+
+  .game-card {
+    min-height: 380px;
+    padding: 15px;
+  }
+
+  .game-card button {
+    width: 100%;
+  }
+}

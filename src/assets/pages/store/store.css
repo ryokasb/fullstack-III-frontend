@@ -1,0 +1,389 @@
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+  --navy:         #0d1b4b;
+  --navy-mid:     #112060;
+  --navy-light:   #1a2e7a;
+  --gold:         #c9a227;
+  --gold-light:   #e0bc4f;
+  --gold-dim:     rgba(201,162,39,0.15);
+  --gold-border:  rgba(201,162,39,0.35);
+  --text:         #f0e8cc;
+  --text-muted:   #7a8ab0;
+  --danger:       #c0392b;
+  --radius:       12px;
+  --radius-sm:    7px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ============================================================
+   STORE LAYOUT
+   ============================================================ */
+.store {
+  min-height: 100vh;
+  padding: 40px 90px;
+  background: linear-gradient(135deg, #04071b, #13256d, #04071b);
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   ASIDE – FILTROS
+   ============================================================ */
+.filters {
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--navy-mid);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 24px;
+}
+
+.filters__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-border);
+}
+
+.filters__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filters__label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.filters__btn {
+  background: transparent;
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.filters__btn:hover {
+  background: var(--gold-dim);
+  color: var(--text);
+  border-color: var(--gold);
+}
+.filters__btn.active {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.filters__clear {
+  background: transparent;
+  border: 1px solid rgba(192, 57, 43, 0.4);
+  border-radius: var(--radius-sm);
+  color: #e88080;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.filters__clear:hover {
+  background: rgba(192, 57, 43, 0.12);
+  border-color: #c0392b;
+}
+
+/* ============================================================
+   CARDS SECTION
+   ============================================================ */
+.cards-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 30px;
+  color: var(--text);
+}
+.section-title span { color: var(--gold); }
+
+/* ============================================================
+   GRID – máximo 4 columnas
+   ============================================================ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ============================================================
+   CARD – base
+   ============================================================ */
+.card {
+  position: relative;
+  background: var(--navy-mid);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(201,162,39,0.08) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 0 1px var(--gold), 0 18px 40px rgba(0,0,0,0.55), 0 0 24px rgba(201,162,39,0.2);
+  border-color: var(--gold);
+}
+
+/* ============================================================
+   IMAGEN
+   ============================================================ */
+.card__img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--navy);
+  flex-shrink: 0;
+}
+.card__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.38s ease;
+}
+.card:hover .card__img-wrap img { transform: scale(1.06); }
+
+.card__platform {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(13, 27, 75, 0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+.card__platform img { width: 20px; height: 20px; object-fit: contain; }
+
+.card__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.badge--sale { background: var(--gold); color: var(--navy); }
+.badge--new  { background: #1a6b3c; color: #a3f0c4; border: 1px solid #2ecc71; }
+.badge--hot  { background: var(--danger); color: #ffd0cd; border: 1px solid #e74c3c; }
+
+.card__sold-out-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 35, 0.65);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+}
+.card__sold-out-overlay span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid rgba(192, 57, 43, 0.6);
+  background: rgba(192, 57, 43, 0.12);
+  color: #e88080;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   CARD BODY
+   ============================================================ */
+.card__body {
+  position: relative;
+  z-index: 1;
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+.card__body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 14px; right: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+}
+
+.card__region {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.card__title {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  flex: 1;
+}
+
+.card__price-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+}
+.card__price {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.card__price-old {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  padding-bottom: 1px;
+  line-height: 1;
+}
+
+/* ============================================================
+   BOTÓN COMPRAR
+   ============================================================ */
+.card__btn {
+  margin-top: 4px;
+  width: 100%;
+  padding: 9px 0;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.12s ease;
+}
+.card__btn:hover { background: var(--gold); color: var(--navy); }
+.card__btn:active { transform: scale(0.97); }
+.card__btn:disabled {
+  border-color: rgba(255,255,255,0.1);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  background: transparent;
+}
+
+/* ============================================================
+   WISHLIST
+   ============================================================ */
+.card__wish {
+  position: absolute;
+  bottom: 56px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(13, 27, 75, 0.7);
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.card__wish:hover {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+/* ============================================================
+   AGOTADO
+   ============================================================ */
+.card.is-sold-out { opacity: 0.75; }
+.card.is-sold-out:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--gold-border);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .store { padding: 32px 40px; }
+  .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .store { flex-direction: column; padding: 24px 20px; }
+  .filters { width: 100%; position: static; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cards-grid { grid-template-columns: 1fr; }
+}

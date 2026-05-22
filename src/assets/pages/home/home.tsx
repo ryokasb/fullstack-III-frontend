@@ -38,14 +38,41 @@ return(
       </article>
 
     </section>
-      <section id='games'>
-       <h3>Juegos Destacados</h3>
+     <section id="games">
+  <h3>Juegos Destacados</h3>
 
-       <article>
-        
-       </article>
+  <article className="games-container">
 
-       </section>
+    <div className="game-card">
+      <img src="/img/game1.png" alt="God of War" />
+      <h4>God of War</h4>
+      <p>$29.990</p>
+      <button>Ver más</button>
+    </div>
+
+    <div className="game-card">
+      <img src="/img/game2.png" alt="Elden Ring" />
+      <h4>Elden Ring</h4>
+      <p>$39.990</p>
+      <button>Ver más</button>
+    </div>
+
+    <div className="game-card">
+      <img src="/img/game3.png" alt="Spider-Man 2" />
+      <h4>Spider-Man 2</h4>
+      <p>$49.990</p>
+      <button>Ver más</button>
+    </div>
+
+    <div className="game-card">
+      <img src="/img/game4.png" alt="Resident Evil 4" />
+      <h4>Resident Evil 4</h4>
+      <p>$34.990</p>
+      <button>Ver más</button>
+    </div>
+
+  </article>
+</section>
     <Footer />
 </>
 )
