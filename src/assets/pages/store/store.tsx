@@ -8,6 +8,7 @@ export default function Store() {
   const [productos, setProductos] = useState<Producto[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [orden, setOrden] = useState("")
 
   useEffect(() => {
     getProductos()
@@ -16,10 +17,32 @@ export default function Store() {
       .finally(() => setLoading(false))
   }, [])
 
+  const productoOrdenados = [...productos].sort((a, b) => {
+    if (orden === "precio-asc") return a.precio - b.precio
+    if (orden === "precio-desc") return b.precio - a.precio
+    if (orden === "nombre-az") return a.nombre.localeCompare(b.nombre)
+    if (orden === "nombre-za") return b.nombre.localeCompare(a.nombre)
+    return 0
+  })
+
   return (
     <main className="store">
       <aside className="filters">
         <h3 className="filters__title">Filtros</h3>
+        <div className="filters__group">
+          <span className="filters__label">Ordenar por</span>
+          <select
+            className="filters__select"
+            value={orden}
+            onChange={e => setOrden(e.target.value)}
+          >
+            <option value="">-- Selecciona --</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="nombre-az">Nombre: A → Z</option>
+            <option value="nombre-za">Nombre: Z → A</option>
+          </select>
+        </div>
 
         <div className="filters__group">
           <span className="filters__label">Precio</span>
@@ -38,13 +61,13 @@ export default function Store() {
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <div className="cards-grid">
-          {productos.map(producto => (
+          {productoOrdenados.map(producto => (
             <article key={producto.id} className={`card ${producto.stock === 0 ? 'is-sold-out' : ''}`}>
               <div className="card__img-wrap">
-                       <img
-                          src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}
-                          alt={producto.nombre}
-                       />
+                <img
+                  src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}
+                  alt={producto.nombre}
+                />
                 {producto.stock === 0 && (
                   <div className="card__sold-out-overlay"><span>Agotado</span></div>
                 )}
