@@ -1,23 +1,23 @@
 /* NavBar.css */
-
-.button-iniciosesion{
-    width: 200px;
-    height: 40px;
-    gap: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+ .btn-cerrarsesion{
+    padding: 10px;
+    width: 120px;
+    color: black;
     background: linear-gradient(
-        to right,
-        #794705 0%,
-        #ff9100 50%,
-        #794705 100%
+    to right,
+     #794705 0%,     /* dorado oscuro izquierda */
+     #ff9100 50%,    /* dorado brillante centro */
+     #794705 100%    /* dorado oscuro derecha */
     );
-
     border-radius: 6px;
     border: none;
-    padding: 0;
+    transform: translateX(60px);
+
+ }
+ .btn-login {
+  display: flex;
+  align-items: center; 
+  gap: 6px;
 }
 .login-singin{
   display: flex;
@@ -50,7 +50,7 @@
   display: flex;
   justify-content:flex-start;
   align-items: center;
-  background-color: #061041ab;
+  background-color: #051150;
   gap: 100px;
   
     

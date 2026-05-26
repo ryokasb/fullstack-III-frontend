@@ -1,4 +1,4 @@
-.login {
+.register {
     min-height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -16,6 +16,7 @@
 .logo-gog {
     height: 150px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .login-form {
@@ -98,4 +99,27 @@
 .btn-crearcuenta:hover{
  cursor: pointer;
  color: #38bdf8;
+}
+.input-eye {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-eye input {
+  width: 100%;
+  padding-right: 2.5rem; /* espacio para el icono */
+}
+
+.input-eye span {
+  position: absolute;
+  right: 0.75rem;
+  cursor: pointer;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+}
+
+.input-eye span:hover {
+  color: #051150;
 }

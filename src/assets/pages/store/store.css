@@ -43,13 +43,16 @@
   border: 1px solid var(--gold-border);
   border-radius: var(--radius);
   padding: 20px 16px;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
+
   position: sticky;
   top: 24px;
-}
 
+  height: fit-content;
+}
 .filters__title {
   font-family: 'Cinzel', serif;
   font-size: 1rem;
