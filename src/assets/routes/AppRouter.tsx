@@ -8,6 +8,10 @@ import Store from "../pages/store/store";
 import Register from "../pages/register/register";
 import ScrollToTop from "../components/ScrollToTop";
 import Productdetail from "../pages/product-detail/product-detail";
+import PurchasingManager from "../pages/purchasingmanager/purchasing-manager";
+import UserManager from "../pages/adminview/usermanager/usermanager";
+import ProductManager from "../pages/adminview/productamanager/productmanager";
+import AdminHome from "../pages/adminview/adminhome/adminhome";
 
 export const AppRouter = () => {
   const [usuario, setUsuario] = useState(() => {
@@ -35,6 +39,8 @@ export const AppRouter = () => {
   };
 
   const NavBarComponent = usuario?.rol === "ADMIN" ? AdminNavBar : NavBar;
+  const HomeComponent = usuario?.rol === "ADMIN" ? AdminHome: Home;
+
 
   return (
     <>
@@ -46,7 +52,7 @@ export const AppRouter = () => {
             <>
               <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
-                <Home />
+                <HomeComponent />
               </main>
             </>
           }
@@ -87,6 +93,41 @@ export const AppRouter = () => {
             </>
           }
         />
+        <Route
+          path="/mis-compras"
+          element={
+            <>
+            <NavBarComponent onLogout={handleLogout} />
+              <main className="contenido">
+                <PurchasingManager />
+              </main>
+            </>
+          }
+        />
+        <Route
+          path="/usermanager"
+          element={
+            <>
+            <NavBarComponent onLogout={handleLogout} />
+              <main className="contenido">
+                <UserManager />
+              </main>
+            </>
+          }
+        />
+          <Route
+          path="/productmanager"
+          element={
+            <>
+            <NavBarComponent onLogout={handleLogout} />
+              <main className="contenido">
+                <ProductManager />
+              </main>
+            </>
+          }
+        />
+        
+       
       </Routes>
     </>
   );

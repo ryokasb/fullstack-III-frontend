@@ -16,7 +16,9 @@ interface NavBarProps {
 export default function NavBar({ onLogout }: NavBarProps) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
+  const configRef = useRef<HTMLDivElement>(null);
   const { cartItems, removeItem, clearCart } = useCart();
 
   const usuarioGuardado = localStorage.getItem("usuario");
@@ -26,6 +28,9 @@ export default function NavBar({ onLogout }: NavBarProps) {
     const handleClickOutside = (e: MouseEvent) => {
       if (cartRef.current && !cartRef.current.contains(e.target as Node)) {
         setIsOpen(false);
+      }
+      if (configRef.current && !configRef.current.contains(e.target as Node)) {
+        setIsConfigOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -220,9 +225,34 @@ export default function NavBar({ onLogout }: NavBarProps) {
       <div className='navbar__user'>
         {usuario ? (
           <>
-          <div className='navbar_userconfig'>
-            <FaGear color='white' size={30} style={{marginRight:20, cursor: 'pointer'}}/>
-          </div>
+            {/* Config gear con menú */}
+            <div className='navbar_userconfig' ref={configRef}>
+              <FaGear
+                color='white'
+                size={25}
+                style={{ marginRight: 20, cursor: 'pointer' }}
+                onClick={() => setIsConfigOpen(prev => !prev)}
+              />
+              {isConfigOpen && (
+                <div className='navbar__config-menu'>
+                  <button
+                    className='navbar__config-item'
+                    onClick={() => { navigate(''); setIsConfigOpen(false); }}
+                  >
+                    <span className='navbar__config-icon'>👤</span>
+                    Perfil usuario
+                  </button>
+                  <button
+                    className='navbar__config-item'
+                    onClick={() => { navigate('/mis-compras'); setIsConfigOpen(false); }}
+                  >
+                    <span className='navbar__config-icon'>🔑</span>
+                    Ver keys / compras
+                  </button>
+                </div>
+              )}
+            </div>
+
             <div className='navbar__avatar'>
               {usuario.nombre?.charAt(0).toUpperCase()}
             </div>

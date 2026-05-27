@@ -87,6 +87,10 @@ export default function Productdetail() {
             ${producto.precio.toLocaleString('es-CL')}
           </p>
 
+          <p className="pd-descripcion">
+            {producto.descripcion}
+          </p>
+
           <div className="pd-stock">
             <span className={`pd-stock-dot ${sinStock ? 'dot--rojo' : stockBajo ? 'dot--amarillo' : 'dot--verde'}`} />
             <span className="pd-stock-texto">

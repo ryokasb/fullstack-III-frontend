@@ -1,7 +1,9 @@
 import './AdminNavBar.css';
 import logo from '../../img/logosmart.png';
 import { useNavigate } from "react-router-dom";
+import { FaGear } from "react-icons/fa6";
 import { FaUsers, FaBoxOpen, FaShieldAlt } from "react-icons/fa";
+import { useRef, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
 interface AdminNavBarProps {
@@ -10,9 +12,21 @@ interface AdminNavBarProps {
 
 export default function AdminNavBar({ onLogout }: AdminNavBarProps) {
   const navigate = useNavigate();
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
+  const configRef = useRef<HTMLDivElement>(null);
 
   const usuarioGuardado = localStorage.getItem("usuario");
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (configRef.current && !configRef.current.contains(e.target as Node)) {
+        setIsConfigOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleLogout = () => {
     Swal.fire({
@@ -47,20 +61,41 @@ export default function AdminNavBar({ onLogout }: AdminNavBarProps) {
 
       {/* Centro: navegación */}
       <ul className='admin-navbar__links'>
-        <li className='admin-navbar__item' onClick={() => navigate("/")}>
+        <li className='admin-navbar__item' onClick={() => navigate("/usermanager")}>
           <FaUsers size={16} />
           Usuarios
         </li>
-        <li className='admin-navbar__item' onClick={() => navigate("/Games")}>
+        <li className='admin-navbar__item' onClick={() => navigate("/productmanager")}>
           <FaBoxOpen size={16} />
           Productos
         </li>
       </ul>
 
-      {/* Derecha: usuario + cerrar sesión */}
+      {/* Usuario */}
       <div className='admin-navbar__user'>
         {usuario && (
           <>
+            {/* Config gear con menú */}
+            <div className='admin-navbar_config' ref={configRef}>
+              <FaGear
+                color='white'
+                size={25}
+                style={{ marginRight: 20, cursor: 'pointer' }}
+                onClick={() => setIsConfigOpen(prev => !prev)}
+              />
+              {isConfigOpen && (
+                <div className='admin-navbar__config-menu'>
+                  <button
+                    className='admin-navbar__config-item'
+                    onClick={() => { navigate(''); setIsConfigOpen(false); }}
+                  >
+                    <span className='admin-navbar__config-icon'>👤</span>
+                    Perfil usuario
+                  </button>
+                </div>
+              )}
+            </div>
+
             <div className='admin-navbar__avatar'>
               {usuario.nombre?.charAt(0).toUpperCase()}
             </div>

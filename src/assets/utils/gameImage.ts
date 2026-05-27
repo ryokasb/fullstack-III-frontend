@@ -27,7 +27,7 @@ export const gameImages: Record<string, string> = {
   "Elden Ring": "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg",
   "Hollow Knight": "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg",
   "Hades": "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg",
-  "Spider-Man 2": "https://cdn.cloudflare.steamstatic.com/steam/apps/2119490/header.jpg",
+  "Spider-Man 2": "https://cdn.cloudflare.steamstatic.com/steam/apps/2651280/header.jpg",
   "Horizon Forbidden West": "https://cdn.cloudflare.steamstatic.com/steam/apps/2420110/header.jpg",
   "Resident Evil Requiem": "https://cdn.cloudflare.steamstatic.com/steam/apps/3764200/header.jpg",
 }

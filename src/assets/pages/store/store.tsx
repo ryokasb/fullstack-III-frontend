@@ -25,9 +25,9 @@ export default function Store() {
 
   const productosFiltrados = [...productos]
     .filter(p => {
-      if (filtroPrecio === "menos-5000") return p.precio < 5000
-      if (filtroPrecio === "5000-15000") return p.precio >= 5000 && p.precio <= 15000
-      if (filtroPrecio === "mas-15000") return p.precio > 15000
+      if (filtroPrecio === "menos-5000") return p.precio < 5.00
+      if (filtroPrecio === "5000-15000") return p.precio >= 5.00 && p.precio <= 15.00
+      if (filtroPrecio === "mas-15000") return p.precio > 15.00
       return true
     })
     .sort((a, b) => {

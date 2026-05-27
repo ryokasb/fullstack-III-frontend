@@ -85,6 +85,21 @@ export const getPedidos = async () => {
   return handleResponse(response);
 };
 
+export async function getPedidosPorUsuario(correo: string) {
+  const token = localStorage.getItem("token");
+  const response = await fetch(
+    `http://localhost:8080/api/v1/pedidos/usuario/${correo}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) throw new Error("Error al obtener los pedidos");
+  return response.json();
+}
+
 export const crearPedido = async (body: {
   detalles: { productoId: number; cantidad: number; precioUnitario: number }[]
 }) => {

@@ -317,6 +317,58 @@
 .navbar__register:hover {
   opacity: 0.85;
 }
+.navbar_userconfig {
+  position: relative;
+}
+
+.navbar__config-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0c1228;
+  border: 1px solid rgba(77, 111, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(77, 111, 255, 0.08);
+  z-index: 999;
+  animation: configFadeIn 0.15s ease;
+}
+
+@keyframes configFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.navbar__config-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  color: #e8ecff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.navbar__config-item:hover {
+  background: rgba(77, 111, 255, 0.15);
+}
+
+.navbar__config-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
 
 /* Responsive */
 @media (max-width: 1024px) {
