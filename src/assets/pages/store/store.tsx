@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react'
 import { getProductos } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
 import { gameImages } from '../../utils/gameImage'
+import { useNavigate } from 'react-router-dom'
 
 export default function Store() {
+  const navigate = useNavigate()
   const [productos, setProductos] = useState<Producto[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -24,7 +26,7 @@ export default function Store() {
     if (orden === "nombre-za") return b.nombre.localeCompare(a.nombre)
     return 0
   })
-
+  
   return (
     <main className="store">
       <aside className="filters">
@@ -62,7 +64,7 @@ export default function Store() {
 
         <div className="cards-grid">
           {productoOrdenados.map(producto => (
-            <article key={producto.id} className={`card ${producto.stock === 0 ? 'is-sold-out' : ''}`}>
+            <article onClick={() => navigate(`/product/${producto.id}`)} key={producto.id} className={`card ${producto.stock === 0 ? 'is-sold-out' : ''}`}>
               <div className="card__img-wrap">
                 <img
                   src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}

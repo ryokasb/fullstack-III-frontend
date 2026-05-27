@@ -70,6 +70,12 @@ export const createProducto = async (data: any) => {
   return handleResponse(response);
 };
 
+export async function getProductoPorId(id: string): Promise<Dtos.Producto> {
+  const response = await fetch(`${BASE_URL}/api/productos/${id}`)
+  if (!response.ok) throw new Error('Producto no encontrado')
+  return response.json()
+}
+
 // ─── PEDIDOS (pedidos-service) ───────────────────────────────────
 
 export const getPedidos = async () => {

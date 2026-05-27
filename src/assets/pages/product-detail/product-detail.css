@@ -1,0 +1,218 @@
+.product-detail {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #04071b, #13256d, #04071b);
+}
+
+/* Layout principal */
+.detalleproducto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 960px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 145, 0, 0.25);
+  border-radius: 18px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  margin: 2rem 0;
+}
+
+/* ── Imagen ── */
+.pd-imagen-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgba(255, 145, 0, 0.15);
+}
+
+.pd-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.pd-imagen:hover {
+  transform: scale(1.03);
+}
+
+/* Badges */
+.pd-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.pd-badge--agotado {
+  background: rgba(163, 45, 45, 0.2);
+  color: #f09595;
+  border: 1px solid rgba(240, 149, 149, 0.4);
+}
+
+.pd-badge--poco {
+  background: rgba(186, 117, 23, 0.2);
+  color: #fac775;
+  border: 1px solid rgba(250, 199, 117, 0.4);
+}
+
+/* ── Info ── */
+.pd-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.pd-nombre {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.pd-precio {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff9100;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Stock */
+.pd-stock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pd-stock-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot--verde    { background: #4caf50; box-shadow: 0 0 6px rgba(76, 175, 80, 0.6); }
+.dot--amarillo { background: #ff9100; box-shadow: 0 0 6px rgba(255, 145, 0, 0.6); }
+.dot--rojo     { background: #f09595; box-shadow: 0 0 6px rgba(240, 149, 149, 0.6); }
+
+.pd-stock-texto {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Botón */
+.pd-boton {
+  margin-top: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(to right, #794705 0%, #ff9100 50%, #794705 100%);
+  background-size: 200% auto;
+  transition: background-position 0.3s ease, transform 0.15s, box-shadow 0.2s;
+  align-self: flex-start;
+}
+
+.pd-boton:hover:not(:disabled) {
+  background-position: right center;
+  box-shadow: 0 0 20px rgba(255, 145, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.pd-boton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pd-boton:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Loading / Error ── */
+.pd-loading,
+.pd-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+}
+
+.pd-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 145, 0, 0.2);
+  border-top-color: #ff9100;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.pd-error-icon {
+  font-size: 2rem;
+  color: #f09595;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .product-detail {
+    padding: 1rem;
+  }
+
+  .detalleproducto {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+    gap: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .pd-nombre {
+    font-size: 1.4rem;
+  }
+
+  .pd-precio {
+    font-size: 1.6rem;
+  }
+
+  .pd-boton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-nombre {
+    font-size: 1.2rem;
+  }
+
+  .pd-precio {
+    font-size: 1.4rem;
+  }
+}

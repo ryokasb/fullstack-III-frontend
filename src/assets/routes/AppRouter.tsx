@@ -5,11 +5,12 @@ import Login from "../pages/login/login";
 import Store from "../pages/store/store";
 import Register from "../pages/register/register";
 import ScrollToTop from "../components/ScrollToTop";
+import Productdetail from "../pages/product-detail/product-detail";
 
 export const AppRouter = () => {
   return (
     <>
-      <ScrollToTop />  {/* ← fuera de <Routes> */}
+      <ScrollToTop />  {}
       <Routes>
         <Route
           path="/"
@@ -43,6 +44,17 @@ export const AppRouter = () => {
             <>
               <main className="contenido">
                 <Register />
+              </main>
+            </>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <>
+              <NavBar />
+              <main className="contenido">
+                <Productdetail/>
               </main>
             </>
           }
