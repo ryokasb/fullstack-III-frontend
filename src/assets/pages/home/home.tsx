@@ -40,13 +40,13 @@ export default function Home() {
 
         <section id="links">
           <article>
-            <button><img className='ofertas-logo' src={Ofertalogo} alt="" /></button>
+            <button onClick={() => navigate('/Games')} ><img className='ofertas-logo' src={Ofertalogo} alt="" /></button>
           </article>
           <article>
             <button><img className='nllogo' src={Nllogo} alt="" /></button>
           </article>
           <article>
-            <button><img className='Jplogo' src={Jplogo} alt="" /></button>
+            <button onClick={() => navigate('/Games')} ><img className='Jplogo' src={Jplogo} alt="" /></button>
           </article>
         </section>
 
@@ -65,7 +65,7 @@ export default function Home() {
                              />
                   <h4>{producto.nombre}</h4>
                   <p>${producto.precio.toLocaleString('es-CL')}</p>
-                  <button onClick={() => navigate('/Games')}>Ver más</button>
+                  <button onClick={() => navigate(`/product/${producto.id}`)}>Ver más</button>
                 </div>
               ))
             )}

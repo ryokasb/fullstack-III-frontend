@@ -85,11 +85,30 @@ export const getPedidos = async () => {
   return handleResponse(response);
 };
 
-export const crearPedido = async (data: Dtos.PedidoRequest): Promise<Dtos.PedidoResponse> => {
-  const response = await fetch(`${BASE_URL}/api/v1/pedidos`, {
+export const crearPedido = async (body: {
+  detalles: { productoId: number; cantidad: number; precioUnitario: number }[]
+}) => {
+  const token = localStorage.getItem("token");
+  const res = await fetch("http://localhost:8080/api/v1/pedidos", {
     method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
   });
-  return handleResponse(response);
+  if (!res.ok) throw new Error("Error al crear pedido");
+  return res.json();
+};
+
+export const completarPedido = async (pedidoId: number) => {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`http://localhost:8080/api/v1/pedidos/${pedidoId}/estado?nuevoEstado=COMPLETADO`, {
+    method: "PATCH",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Error al completar pedido");
+  return res.json();
 };

@@ -5,7 +5,11 @@ import { useState } from "react";
 import { login } from "../../service/gateway/gatewayService";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function Login() {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+export default function Login({ onLogin }: LoginProps) {
   const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
@@ -24,11 +28,9 @@ export default function Login() {
       localStorage.setItem("usuario", JSON.stringify(res.usuario));
       localStorage.setItem("rol", res.usuario.rol);
 
-      if (res.usuario.rol === "ADMIN") {
-        navigate("/");
-      } else {
-        navigate("/");
-      }
+      onLogin(); // 👈 avisa al router para que actualice la NavBar
+
+      navigate("/");
     } catch (err: any) {
       setError("Correo o contraseña incorrectos");
     } finally {
@@ -52,7 +54,6 @@ export default function Login() {
           required
         />
 
-        {}
         <div className="input-eye">
           <input
             type={verContraseña ? "text" : "password"}

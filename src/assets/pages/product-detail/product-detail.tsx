@@ -4,9 +4,12 @@ import { useParams } from 'react-router-dom'
 import { getProductoPorId } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
 import { gameImages } from '../../utils/gameImage'
+import { useCart } from '../../hooks/UseCart'
+import Swal from 'sweetalert2'
 
 export default function Productdetail() {
   const { id } = useParams()
+  const { addItem } = useCart()
   const [producto, setProducto] = useState<Producto | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -21,6 +24,19 @@ export default function Productdetail() {
       )
       .finally(() => setLoading(false))
   }, [id])
+
+  const handleAgregarCarrito = () => {
+    if (!producto) return
+    addItem({ id: producto.id, name: producto.nombre, price: producto.precio })
+    Swal.fire({
+      icon: 'success',
+      title: '¡Agregado!',
+      text: `${producto.nombre} fue añadido al carrito.`,
+      confirmButtonColor: '#051150',
+      timer: 1500,
+      showConfirmButton: false,
+    })
+  }
 
   if (loading) {
     return (
@@ -52,7 +68,6 @@ export default function Productdetail() {
     <main className="product-detail">
       <div className="detalleproducto">
 
-        {/* Imagen */}
         <div className="pd-imagen-wrapper">
           <img
             src={imagenSrc}
@@ -65,7 +80,6 @@ export default function Productdetail() {
           )}
         </div>
 
-        {/* Info */}
         <div className="pd-info">
           <h1 className="pd-nombre">{producto.nombre}</h1>
 
@@ -87,6 +101,7 @@ export default function Productdetail() {
           <button
             className="pd-boton"
             disabled={sinStock}
+            onClick={handleAgregarCarrito}
           >
             {sinStock ? 'No disponible' : 'Agregar al carrito'}
           </button>

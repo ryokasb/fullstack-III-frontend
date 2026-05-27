@@ -1,0 +1,142 @@
+.admin-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #051150;
+  padding: 0 40px;
+  height: 120px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  
+}
+
+/* Brand */
+.admin-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-navbar__logo {
+  height: 80px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.admin-navbar__badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(to right, #794705, #ff9100, #794705);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Links */
+.admin-navbar__links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-navbar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.admin-navbar__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #38bdf8;
+}
+
+/* User */
+.admin-navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-navbar__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #794705, #ff9100);
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.admin-navbar__user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.admin-navbar__user-name {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-navbar__user-role {
+  color: #ff9100;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.admin-navbar__logout {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 145, 0, 0.5);
+  color: #ff9100;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-navbar__logout:hover {
+  background: rgba(255, 145, 0, 0.1);
+  border-color: #ff9100;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 20px;
+    gap: 12px;
+  }
+
+  .admin-navbar__links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-navbar__user-info {
+    display: none;
+  }
+}

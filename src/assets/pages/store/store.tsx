@@ -4,13 +4,17 @@ import { getProductos } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
 import { gameImages } from '../../utils/gameImage'
 import { useNavigate } from 'react-router-dom'
+import { useCart } from '../../hooks/UseCart'
+import Swal from 'sweetalert2'
 
 export default function Store() {
   const navigate = useNavigate()
+  const { addItem } = useCart()
   const [productos, setProductos] = useState<Producto[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [orden, setOrden] = useState("")
+  const [filtroPrecio, setFiltroPrecio] = useState("")
 
   useEffect(() => {
     getProductos()
@@ -19,14 +23,39 @@ export default function Store() {
       .finally(() => setLoading(false))
   }, [])
 
-  const productoOrdenados = [...productos].sort((a, b) => {
-    if (orden === "precio-asc") return a.precio - b.precio
-    if (orden === "precio-desc") return b.precio - a.precio
-    if (orden === "nombre-az") return a.nombre.localeCompare(b.nombre)
-    if (orden === "nombre-za") return b.nombre.localeCompare(a.nombre)
-    return 0
-  })
-  
+  const productosFiltrados = [...productos]
+    .filter(p => {
+      if (filtroPrecio === "menos-5000") return p.precio < 5000
+      if (filtroPrecio === "5000-15000") return p.precio >= 5000 && p.precio <= 15000
+      if (filtroPrecio === "mas-15000") return p.precio > 15000
+      return true
+    })
+    .sort((a, b) => {
+      if (orden === "precio-asc") return a.precio - b.precio
+      if (orden === "precio-desc") return b.precio - a.precio
+      if (orden === "nombre-az") return a.nombre.localeCompare(b.nombre)
+      if (orden === "nombre-za") return b.nombre.localeCompare(a.nombre)
+      return 0
+    })
+
+  const limpiarFiltros = () => {
+    setOrden("")
+    setFiltroPrecio("")
+  }
+
+  const handleComprar = (e: React.MouseEvent, producto: Producto) => {
+    e.stopPropagation() // evita navegar al detalle
+    addItem({ id: producto.id, name: producto.nombre, price: producto.precio })
+    Swal.fire({
+      icon: 'success',
+      title: '¡Agregado!',
+      text: `${producto.nombre} fue añadido al carrito.`,
+      confirmButtonColor: '#051150',
+      timer: 1500,
+      showConfirmButton: false,
+    })
+  }
+
   return (
     <main className="store">
       <aside className="filters">
@@ -48,12 +77,27 @@ export default function Store() {
 
         <div className="filters__group">
           <span className="filters__label">Precio</span>
-          <button className="filters__btn">Menos de $5.000</button>
-          <button className="filters__btn">$5.000 – $15.000</button>
-          <button className="filters__btn">Más de $15.000</button>
+          <button
+            className={`filters__btn ${filtroPrecio === "menos-5000" ? "filters__btn--active" : ""}`}
+            onClick={() => setFiltroPrecio(prev => prev === "menos-5000" ? "" : "menos-5000")}
+          >
+            Menos de $5.000
+          </button>
+          <button
+            className={`filters__btn ${filtroPrecio === "5000-15000" ? "filters__btn--active" : ""}`}
+            onClick={() => setFiltroPrecio(prev => prev === "5000-15000" ? "" : "5000-15000")}
+          >
+            $5.000 – $15.000
+          </button>
+          <button
+            className={`filters__btn ${filtroPrecio === "mas-15000" ? "filters__btn--active" : ""}`}
+            onClick={() => setFiltroPrecio(prev => prev === "mas-15000" ? "" : "mas-15000")}
+          >
+            Más de $15.000
+          </button>
         </div>
 
-        <button className="filters__clear">Limpiar filtros</button>
+        <button className="filters__clear" onClick={limpiarFiltros}>Limpiar filtros</button>
       </aside>
 
       <section className="cards-section">
@@ -63,8 +107,12 @@ export default function Store() {
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <div className="cards-grid">
-          {productoOrdenados.map(producto => (
-            <article onClick={() => navigate(`/product/${producto.id}`)} key={producto.id} className={`card ${producto.stock === 0 ? 'is-sold-out' : ''}`}>
+          {productosFiltrados.map(producto => (
+            <article
+              onClick={() => navigate(`/product/${producto.id}`)}
+              key={producto.id}
+              className={`card ${producto.stock === 0 ? 'is-sold-out' : ''}`}
+            >
               <div className="card__img-wrap">
                 <img
                   src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}
@@ -82,7 +130,11 @@ export default function Store() {
                     ${producto.precio.toLocaleString('es-CL')}
                   </span>
                 </div>
-                <button className="card__btn" disabled={producto.stock === 0}>
+                <button
+                  className="card__btn"
+                  disabled={producto.stock === 0}
+                  onClick={(e) => handleComprar(e, producto)}
+                >
                   {producto.stock === 0 ? 'No disponible' : 'Comprar'}
                 </button>
               </div>
