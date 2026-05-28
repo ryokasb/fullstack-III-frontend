@@ -147,17 +147,17 @@ export default function NavBar({ onLogout }: NavBarProps) {
 
   return (
     <nav className='navbar'>
-      {/* Logo */}
+      {}
       <div className='navbar__brand'>
         <img src={logo} onClick={() => navigate("/")} alt="logo" className='navbar__logo' />
       </div>
 
-      {/* Buscador */}
+      {}
       <div className='navbar__search'>
         <input type="search" placeholder='Buscar juegos...' />
       </div>
 
-      {/* Links */}
+      {}
       <ul className='navbar__links'>
         <li className='navbar__item' onClick={() => navigate("/")}>
           <FaHome size={15} /> Inicio
@@ -221,11 +221,11 @@ export default function NavBar({ onLogout }: NavBarProps) {
         )}
       </div>
 
-      {/* Usuario */}
+      {}
       <div className='navbar__user'>
         {usuario ? (
           <>
-            {/* Config gear con menú */}
+            {}
             <div className='navbar_userconfig' ref={configRef}>
               <FaGear
                 color='white'
