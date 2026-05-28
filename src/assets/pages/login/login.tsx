@@ -51,6 +51,9 @@ export default function Login({ onLogin }: LoginProps) {
           placeholder="Correo electrónico"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
+          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
           required
         />
 

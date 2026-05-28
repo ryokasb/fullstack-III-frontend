@@ -51,7 +51,7 @@ export default function Register() {
 
         <input
           type="text"
-          placeholder="Nombre completo"
+          placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           required
@@ -61,6 +61,9 @@ export default function Register() {
           placeholder="Correo electrónico"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
+          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
           required
         />
 
