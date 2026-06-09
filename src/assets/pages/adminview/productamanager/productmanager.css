@@ -1,8 +1,231 @@
 .productmanager {
-  margin: 0;
+  padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg,
-   #04071b, 
-   #13256d, 
-   #04071b);
+  background: #060d20;
+  color: #e8e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.pm-header {
+  margin-bottom: 2rem;
+  border-left: 4px solid #c9a227;
+  padding-left: 1rem;
+}
+
+.pm-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.pm-subtitle {
+  font-size: 0.875rem;
+  color: #888;
+  margin: 0;
+}
+
+/* Status messages */
+.pm-status {
+  text-align: center;
+  color: #aaa;
+  padding: 2rem;
+}
+.pm-status--error {
+  color: #e05c5c;
+}
+
+/* Table wrapper */
+.pm-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #1a2540;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Table */
+.pm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 700px;
+}
+
+.pm-table thead tr {
+  background: #0b1635;
+  border-bottom: 2px solid #c9a227;
+}
+
+.pm-table th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #c9a227;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.pm-table tbody tr {
+  border-bottom: 1px solid #111d36;
+  transition: background 0.15s;
+}
+
+.pm-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.pm-table tbody tr:hover {
+  background: #0d1a30;
+}
+
+.pm-row--agotado {
+  opacity: 0.6;
+}
+
+.pm-table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+
+/* Cell styles */
+.pm-cell--id {
+  color: #556;
+  font-size: 0.78rem;
+  font-family: monospace;
+}
+
+.pm-cell--name {
+  font-weight: 600;
+  color: #e8e8f0;
+}
+
+.pm-cell--desc {
+  color: #8899aa;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm-cell--price {
+  font-weight: 600;
+  color: #c9a227;
+  white-space: nowrap;
+}
+
+.pm-cell--stock {
+  min-width: 80px;
+}
+
+.pm-cell--action {
+  white-space: nowrap;
+}
+
+/* Stock badge */
+.pm-stock-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: #0e2240;
+  color: #64d6a4;
+  border: 1px solid #1e4060;
+}
+
+.pm-stock-badge--low {
+  color: #f0b429;
+  border-color: #4a3800;
+  background: #251e00;
+}
+
+.pm-stock-badge--out {
+  color: #e05c5c;
+  border-color: #3d1212;
+  background: #200a0a;
+}
+
+/* Status tag */
+.pm-status-tag {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.pm-status-tag--in {
+  background: #0b2e1e;
+  color: #64d6a4;
+  border: 1px solid #145e34;
+}
+
+.pm-status-tag--out {
+  background: #200a0a;
+  color: #e05c5c;
+  border: 1px solid #5c1c1c;
+}
+
+/* Stock input */
+.pm-stock-input {
+  width: 70px;
+  padding: 0.35rem 0.5rem;
+  background: #0a1433;
+  border: 1px solid #c9a227;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.875rem;
+  outline: none;
+  text-align: center;
+}
+
+.pm-stock-input:focus {
+  border-color: #e8c040;
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.2);
+}
+
+/* Buttons */
+.pm-action-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pm-btn {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.pm-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.pm-btn:active {
+  transform: translateY(0);
+}
+
+.pm-btn--edit {
+  background: #051150;
+  color: #c9a227;
+  border: 1px solid #1a2e70;
+}
+
+.pm-btn--save {
+  background: #c9a227;
+  color: #060d20;
+}
+
+.pm-btn--cancel {
+  background: #1a1f30;
+  color: #aaa;
+  border: 1px solid #2a3050;
 }

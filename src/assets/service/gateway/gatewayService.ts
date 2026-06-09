@@ -52,6 +52,16 @@ export const getUsuarios = async () => {
   return handleResponse(response);
 };
 
+
+export const actualizarUsuario = async (id: number, data: Dtos.Usuario): Promise<Dtos.Usuario> => {
+  const response = await fetch(`${BASE_URL}/api/usuarios/${id}`, {
+    method: "PUT",
+    headers: authHeaders(),
+    body: JSON.stringify(data),
+  });
+  return handleResponse(response);
+};
+
 // ─── PRODUCTOS (inventario-service) ─────────────────────────────
 
 export const getProductos = async (): Promise<Dtos.Producto[]> => {
@@ -75,6 +85,14 @@ export async function getProductoPorId(id: string): Promise<Dtos.Producto> {
   if (!response.ok) throw new Error('Producto no encontrado')
   return response.json()
 }
+export const actualizarStock = async (id: number, nuevoStock: number): Promise<Dtos.Producto> => {
+  const response = await fetch(`${BASE_URL}/api/productos/${id}/stock?nuevoStock=${nuevoStock}`, {
+    method: "PUT",
+    headers: authHeaders(),
+  });
+  return handleResponse(response);
+};
+
 
 // ─── PEDIDOS (pedidos-service) ───────────────────────────────────
 
@@ -88,7 +106,7 @@ export const getPedidos = async () => {
 export async function getPedidosPorUsuario(correo: string) {
   const token = localStorage.getItem("token");
   const response = await fetch(
-    `http://localhost:8080/api/v1/pedidos/usuario/${correo}`,
+    `${BASE_URL}/api/v1/pedidos/usuario/${correo}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -104,7 +122,7 @@ export const crearPedido = async (body: {
   detalles: { productoId: number; cantidad: number; precioUnitario: number }[]
 }) => {
   const token = localStorage.getItem("token");
-  const res = await fetch("http://localhost:8080/api/v1/pedidos", {
+  const res = await fetch(`${BASE_URL}/api/v1/pedidos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -118,7 +136,7 @@ export const crearPedido = async (body: {
 
 export const completarPedido = async (pedidoId: number) => {
   const token = localStorage.getItem("token");
-  const res = await fetch(`http://localhost:8080/api/v1/pedidos/${pedidoId}/estado?nuevoEstado=COMPLETADO`, {
+  const res = await fetch(`${BASE_URL}/api/v1/pedidos/${pedidoId}/estado?nuevoEstado=COMPLETADO`, {
     method: "PATCH",
     headers: {
       "Authorization": `Bearer ${token}`,

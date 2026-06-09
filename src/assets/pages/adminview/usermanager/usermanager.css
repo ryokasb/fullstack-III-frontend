@@ -1,8 +1,192 @@
 .usermanager {
-  margin: 0;
+  padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg,
-   #04071b, 
-   #13256d, 
-   #04071b);
+  background: #060d20;
+  color: #e8e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.um-header {
+  margin-bottom: 2rem;
+  border-left: 4px solid #c9a227;
+  padding-left: 1rem;
+}
+
+.um-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.um-subtitle {
+  font-size: 0.875rem;
+  color: #888;
+  margin: 0;
+}
+
+/* Status messages */
+.um-status {
+  text-align: center;
+  color: #aaa;
+  padding: 2rem;
+}
+.um-status--error {
+  color: #e05c5c;
+}
+
+/* Table wrapper */
+.um-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #1a2540;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Table */
+.um-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 700px;
+}
+
+.um-table thead tr {
+  background: #0b1635;
+  border-bottom: 2px solid #c9a227;
+}
+
+.um-table th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #c9a227;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.um-table tbody tr {
+  border-bottom: 1px solid #111d36;
+  transition: background 0.15s;
+}
+
+.um-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.um-table tbody tr:hover {
+  background: #0d1a30;
+}
+
+.um-row--inactivo {
+  opacity: 0.6;
+}
+
+.um-table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+
+/* Cell styles */
+.um-cell--id {
+  color: #556;
+  font-size: 0.78rem;
+  font-family: monospace;
+}
+
+.um-cell--name {
+  font-weight: 600;
+  color: #e8e8f0;
+}
+
+.um-cell--email {
+  color: #8899aa;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.um-cell--rol {
+  min-width: 90px;
+}
+
+.um-cell--action {
+  white-space: nowrap;
+}
+
+/* Rol badge */
+.um-rol-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: #0e2240;
+  color: #7eb8f5;
+  border: 1px solid #1e4060;
+}
+
+.um-rol-badge--admin {
+  color: #c9a227;
+  border-color: #4a3800;
+  background: #251e00;
+}
+
+.um-rol-badge--user,
+.um-rol-badge--usuario {
+  color: #64d6a4;
+  border-color: #1e4060;
+  background: #0e2240;
+}
+
+/* Status tag */
+.um-status-tag {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.um-status-tag--active {
+  background: #0b2e1e;
+  color: #64d6a4;
+  border: 1px solid #145e34;
+}
+
+.um-status-tag--inactive {
+  background: #200a0a;
+  color: #e05c5c;
+  border: 1px solid #5c1c1c;
+}
+
+/* Buttons */
+.um-btn {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.um-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.um-btn:active {
+  transform: translateY(0);
+}
+
+.um-btn--edit {
+  background: #051150;
+  color: #c9a227;
+  border: 1px solid #1a2e70;
 }

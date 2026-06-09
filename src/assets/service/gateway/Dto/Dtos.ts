@@ -55,8 +55,13 @@ export interface PedidoResponse {
     precioUnitario: number;
   }[];
 }
-
-
+//usuario dtos
+export interface Usuario{
+  id: number,
+  nombre: string,
+  correo: string,
+  rol: string
+} 
 
 // Carrito vive solo en el front
 export interface CartItem {
