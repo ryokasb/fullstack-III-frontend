@@ -1,6 +1,5 @@
 import './usermanager.css'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { getUsuarios, toggleActivarUsuario, registro} from '../../../service/gateway/gatewayService'
 import type { Usuario } from '../../../service/gateway/Dto/Dtos'
 import Swal from 'sweetalert2'
@@ -9,7 +8,6 @@ export default function UserManager() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const navigate = useNavigate()
 
   useEffect(() => {
     getUsuarios()
@@ -19,6 +17,7 @@ export default function UserManager() {
   }, [])
 
   const handleEditClick = (id: number) => {
+     console.log(id)
   }
 
   const handleToggle = async (usuario: Usuario) => {

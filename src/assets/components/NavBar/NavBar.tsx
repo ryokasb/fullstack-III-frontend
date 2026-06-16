@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 import { useCart } from '../../hooks/UseCart'
 import type * as Dtos from "../../service/gateway/Dto/Dtos";
 import { crearPedido, completarPedido, getProductoPorId, getProductoBusqueda } from '../../service/gateway/gatewayService';
-import { useAuthGuard } from '../../hooks/useAuthGuard';
 
 interface NavBarProps {
   onLogout: () => void;
