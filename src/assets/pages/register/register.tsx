@@ -10,7 +10,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
-  const [contraseña, setContraseña] = useState("");
+  const [contrasena, setContraseña] = useState("");
   const [repetirContraseña, setRepetirContraseña] = useState("");
   const [loading, setLoading] = useState(false);
   const [verContraseña, setVerContraseña] = useState(false);
@@ -19,26 +19,32 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (contraseña !== repetirContraseña) {
+    if (contrasena !== repetirContraseña) {
       Swal.fire({ icon: 'error', title: 'Las contraseñas no coinciden', confirmButtonColor: '#051150' });
       return;
     }
 
-    if (contraseña.length < 6) {
+    if (contrasena.length < 6) {
       Swal.fire({ icon: 'error', title: 'La contraseña debe tener al menos 6 caracteres', confirmButtonColor: '#051150' });
       return;
     }
 
     setLoading(true);
     try {
-      await registro({ nombre, correo, contraseña, rol: "CLIENTE" });
+      await registro({ nombre, correo, contrasena, rol: "CLIENTE", activo: true });
       Swal.fire({ icon: 'success', title: '¡Cuenta creada!', text: 'Ya puedes iniciar sesión', confirmButtonColor: '#051150' })
         .then(() => navigate("/login"));
     } catch (error: any) {
-      Swal.fire({ icon: 'error', title: 'Error al registrarse', text: 'El correo ya está en uso o los datos son inválidos', confirmButtonColor: '#051150' });
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al registrarse',
+        text: error.message || 'Error inesperado',
+        confirmButtonColor: '#051150'
+      });
     } finally {
-      setLoading(false);
+      setLoading(false); // siempre se ejecuta, con éxito o error
     }
+
   };
 
   return (
@@ -72,7 +78,7 @@ export default function Register() {
           <input
             type={verContraseña ? "text" : "password"}
             placeholder="Contraseña"
-            value={contraseña}
+            value={contrasena}
             onChange={(e) => setContraseña(e.target.value)}
             required
           />

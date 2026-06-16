@@ -1,5 +1,4 @@
 import './home.css'
-import Footer from '../../components/Footer/Footer'
 import { useEffect, useState } from 'react'
 import { getProductos } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
@@ -72,7 +71,6 @@ export default function Home() {
           </article>
         </section>
 
-        <Footer />
       </main>
     </>
   )

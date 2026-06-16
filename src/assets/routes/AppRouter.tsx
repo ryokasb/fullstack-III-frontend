@@ -12,6 +12,10 @@ import PurchasingManager from "../pages/purchasingmanager/purchasing-manager";
 import UserManager from "../pages/adminview/usermanager/usermanager";
 import ProductManager from "../pages/adminview/productamanager/productmanager";
 import AdminHome from "../pages/adminview/adminhome/adminhome";
+import PasswordRecovery from "../pages/passwordRecovery/passwordrecovery";
+import CodeVerify from "../pages/codeVerify/codeVerify";
+import Userprofile from "../pages/userprofile/userprofile";
+
 
 export const AppRouter = () => {
   const [usuario, setUsuario] = useState(() => {
@@ -122,6 +126,37 @@ export const AppRouter = () => {
             <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <ProductManager />
+              </main>
+            </>
+          }
+        />
+         <Route
+          path="/password-recovery"
+          element={
+            <>
+              <main className="contenido">
+                <PasswordRecovery />
+              </main>
+            </>
+          }
+        />
+        <Route
+          path="/code-verify"
+          element={
+            <>
+              <main className="contenido">
+                <CodeVerify />
+              </main>
+            </>
+          }
+        />
+        <Route
+          path="/user-profile"
+          element={
+            <>
+              <NavBarComponent onLogout={handleLogout} />
+              <main className="contenido">
+                <Userprofile />
               </main>
             </>
           }

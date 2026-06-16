@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { useCart } from '../../hooks/UseCart'
-import { crearPedido, completarPedido, getProductoPorId } from '../../service/gateway/gatewayService';
+import type * as Dtos from "../../service/gateway/Dto/Dtos";
+import { crearPedido, completarPedido, getProductoPorId, getProductoBusqueda } from '../../service/gateway/gatewayService';
+import { useAuthGuard } from '../../hooks/useAuthGuard';
 
 interface NavBarProps {
   onLogout: () => void;
@@ -20,6 +22,12 @@ export default function NavBar({ onLogout }: NavBarProps) {
   const cartRef = useRef<HTMLDivElement>(null);
   const configRef = useRef<HTMLDivElement>(null);
   const { cartItems, removeItem, clearCart } = useCart();
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<Dtos.Producto[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+ 
 
   const usuarioGuardado = localStorage.getItem("usuario");
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
@@ -32,10 +40,30 @@ export default function NavBar({ onLogout }: NavBarProps) {
       if (configRef.current && !configRef.current.contains(e.target as Node)) {
         setIsConfigOpen(false);
       }
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setIsSearchOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleSearch = async (value: string) => {
+    setSearch(value);
+    if (value.trim().length < 2) {
+      setSearchResults([]);
+      setIsSearchOpen(false);
+      return;
+    }
+    try {
+      const results = await getProductoBusqueda(value);
+      setSearchResults(results.slice(0, 4));
+      setIsSearchOpen(true);
+    } catch {
+      setSearchResults([]);
+      setIsSearchOpen(false);
+    }
+  };
 
   const handleLogout = () => {
     Swal.fire({
@@ -147,17 +175,43 @@ export default function NavBar({ onLogout }: NavBarProps) {
 
   return (
     <nav className='navbar'>
-      {}
       <div className='navbar__brand'>
         <img src={logo} onClick={() => navigate("/")} alt="logo" className='navbar__logo' />
       </div>
 
-      {}
-      <div className='navbar__search'>
-        <input type="search" placeholder='Buscar juegos...' />
+      <div className='navbar__search' ref={searchRef}>
+        <input
+          type="search"
+          placeholder='Buscar juegos...'
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
+          onFocus={() => searchResults.length > 0 && setIsSearchOpen(true)}
+        />
+        {isSearchOpen && searchResults.length > 0 && (
+          <div className='navbar__search-dropdown'>
+            {searchResults.map((producto) => (
+              <div
+                key={producto.id}
+                className='navbar__search-item'
+                onClick={() => {
+                  navigate(`/product/${producto.id}`);
+                  setIsSearchOpen(false);
+                  setSearch('');
+                  setSearchResults([]);
+                }}
+              >
+                <div className='navbar__search-info'>
+                  <span className='navbar__search-name'>{producto.nombre}</span>
+                  <span className='navbar__search-price'>
+                    ${producto.precio?.toLocaleString('es-CL')}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {}
       <ul className='navbar__links'>
         <li className='navbar__item' onClick={() => navigate("/")}>
           <FaHome size={15} /> Inicio
@@ -170,7 +224,6 @@ export default function NavBar({ onLogout }: NavBarProps) {
         </li>
       </ul>
 
-      {/* Carrito */}
       <div className='navbar__cart' ref={cartRef}>
         <div onClick={() => setIsOpen(prev => !prev)} className='navbar__cart-icon'>
           <FaShoppingCart size={20} />
@@ -221,11 +274,9 @@ export default function NavBar({ onLogout }: NavBarProps) {
         )}
       </div>
 
-      {}
       <div className='navbar__user'>
         {usuario ? (
           <>
-            {}
             <div className='navbar_userconfig' ref={configRef}>
               <FaGear
                 color='white'
@@ -237,7 +288,7 @@ export default function NavBar({ onLogout }: NavBarProps) {
                 <div className='navbar__config-menu'>
                   <button
                     className='navbar__config-item'
-                    onClick={() => { navigate(''); setIsConfigOpen(false); }}
+                    onClick={() => { navigate('/user-profile'); setIsConfigOpen(false); }}
                   >
                     <span className='navbar__config-icon'>👤</span>
                     Perfil usuario

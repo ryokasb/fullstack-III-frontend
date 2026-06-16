@@ -1,0 +1,209 @@
+.codeVerify{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;  /* antes: space-between */
+    align-items: center;
+    padding: 40px 90px;
+    position: relative;       /* necesario para el logo absoluto */
+
+    background: linear-gradient(
+        135deg,
+        #04071b,
+        #13256d,
+        #04071b
+    );
+}
+
+.logo-gog-re {
+    height: 150px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    position: absolute;
+    top: 30px;
+    left: 40px;   /* o right: 40px si lo quieres a la derecha */
+}
+
+.codeverify-form {
+    width: 420px;
+    background: rgba(15, 20, 45, 0.97);
+    border: 1px solid rgba(255, 145, 0, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid rgba(255, 145, 0, 0.15);
+}
+.form-header h2 { color: white; margin: 0 0 4px; font-size: 22px; }
+.form-header p  { color: #b7bdd6; margin: 0; font-size: 13px; }
+
+.code-section {
+    padding: 22px 32px 20px;
+    border-bottom: 1px solid rgba(255, 145, 0, 0.12);
+    background: rgba(255, 145, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.code-section label {
+    color: #ff9100;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.code-section input {
+    height: 58px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 18px;
+    padding: 0 16px;
+    background: #111830;
+    border: 1.5px solid rgba(255, 145, 0, 0.5);
+    border-radius: 10px;
+    color: #ff9100;
+}
+.code-section input:focus {
+    outline: none;
+    border-color: #ff9100;
+    box-shadow: 0 0 0 3px rgba(255, 145, 0, 0.15);
+}
+
+.fields-section {
+    padding: 20px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-group label {
+    color: #b7bdd6;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+.fields-section input {
+    height: 48px;
+    padding: 0 16px;
+    background: #1b2554;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 9px;
+    color: white;
+    font-size: 14px;
+}
+.fields-section input:focus { outline: 2px solid #ff9100; }
+
+.codeverify-form button {
+    margin: 4px 32px 28px;
+    height: 50px;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #794705 0%, #ff9100 50%, #794705 100%);
+    transition: 0.3s;
+}
+.codeverify-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255,145,0,0.25);
+}
+
+.input-eye {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-eye input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.input-eye span {
+  position: absolute;
+  right: 0.75rem;
+  cursor: pointer;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+}
+
+.input-eye span:hover {
+  color: #051150;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-box {
+  background: rgba(15, 20, 45, 0.98);
+  border: 1px solid rgba(255, 145, 0, 0.4);
+  border-radius: 16px;
+  padding: 40px 36px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.modal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 145, 0, 0.12);
+  border: 1.5px solid rgba(255, 145, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff9100;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.modal-box h3 {
+  color: white;
+  margin: 0;
+  font-size: 20px;
+}
+
+.modal-box p {
+  color: #b7bdd6;
+  margin: 0;
+  font-size: 14px;
+}
+
+.modal-box button {
+  margin-top: 8px;
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(to right, #794705 0%, #ff9100 50%, #794705 100%);
+  transition: 0.3s;
+}
+
+.modal-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 145, 0, 0.25);
+}

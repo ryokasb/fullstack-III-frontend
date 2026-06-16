@@ -28,11 +28,11 @@ export default function Login({ onLogin }: LoginProps) {
       localStorage.setItem("usuario", JSON.stringify(res.usuario));
       localStorage.setItem("rol", res.usuario.rol);
 
-      onLogin(); // 👈 avisa al router para que actualice la NavBar
+      onLogin(); 
 
       navigate("/");
     } catch (err: any) {
-      setError("Correo o contraseña incorrectos");
+      setError( err.message || "Correo o contraseña incorrectos");
     } finally {
       setLoading(false);
     }
@@ -81,6 +81,9 @@ export default function Login({ onLogin }: LoginProps) {
           <a className='btn-crearcuenta' onClick={() => navigate("/register")}>
             Crea una cuenta
           </a>
+        </div>
+        <div className='recuperar-contraseña'>
+          <a className='btn-crearcuenta' onClick={() => navigate("/password-recovery")}>¿Olvidaste tu contraseña?</a>
         </div>
       </form>
     </main>

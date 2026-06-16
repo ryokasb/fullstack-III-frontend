@@ -14,6 +14,7 @@ export default function Productdetail() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+
   useEffect(() => {
     if (!id) return
     setLoading(true)
@@ -26,6 +27,18 @@ export default function Productdetail() {
   }, [id])
 
   const handleAgregarCarrito = () => {
+
+     const token = localStorage.getItem("token");
+        if (!token) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Inicia sesión',
+            text: 'Debes iniciar sesión para agregar productos a tu carrito.',
+            confirmButtonColor: '#051150',
+          });
+          return;
+        }
+
     if (!producto) return
     addItem({ id: producto.id, name: producto.nombre, price: producto.precio })
     Swal.fire({

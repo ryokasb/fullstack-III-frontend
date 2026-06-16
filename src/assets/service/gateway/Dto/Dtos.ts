@@ -7,9 +7,18 @@ export interface LoginRequest {
 export interface RegistroRequest {
   nombre: string;
   correo: string;
-  contraseña: string;
+  contrasena: string;
   rol:string;
+  activo: boolean;
 }
+
+export interface CrearProducto {
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+}
+
 
 export interface DetalleRequest {
   productoId: number;
@@ -21,7 +30,6 @@ export interface PedidoRequest {
   detalles: DetalleRequest[];
 }
 
-//responses
 export interface Producto {
   id: number;
   nombre: string;
@@ -29,6 +37,7 @@ export interface Producto {
   precio: number;
   stock: number;
 }
+
 
 export interface LoginResponse {
   token: string;
@@ -60,7 +69,19 @@ export interface Usuario{
   id: number,
   nombre: string,
   correo: string,
-  rol: string
+  rol: string,
+  activo:boolean
+} 
+
+export interface ActualizarUsuario {
+  nombre: string;
+  correo: string;
+}
+
+export interface CambiarContraseña{
+  correo: string,
+  codigo: string,
+  nuevaContrasena:string
 } 
 
 // Carrito vive solo en el front

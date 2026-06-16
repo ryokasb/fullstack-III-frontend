@@ -15,6 +15,7 @@ export default function Store() {
   const [error, setError] = useState("")
   const [orden, setOrden] = useState("")
   const [filtroPrecio, setFiltroPrecio] = useState("")
+  const [busqueda, setBusqueda] = useState("")
 
   useEffect(() => {
     getProductos()
@@ -30,6 +31,10 @@ export default function Store() {
       if (filtroPrecio === "mas-15000") return p.precio > 15.00
       return true
     })
+    .filter(p =>
+      p.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+      p.descripcion?.toLowerCase().includes(busqueda.toLowerCase())
+    )
     .sort((a, b) => {
       if (orden === "precio-asc") return a.precio - b.precio
       if (orden === "precio-desc") return b.precio - a.precio
@@ -41,10 +46,23 @@ export default function Store() {
   const limpiarFiltros = () => {
     setOrden("")
     setFiltroPrecio("")
+    setBusqueda("")
   }
 
   const handleComprar = (e: React.MouseEvent, producto: Producto) => {
-    e.stopPropagation() // evita navegar al detalle
+
+    const token = localStorage.getItem("token");
+            if (!token) {
+              Swal.fire({
+                icon: 'warning',
+                title: 'Inicia sesión',
+                text: 'Debes iniciar sesión para agregar productos a tu carrito.',
+                confirmButtonColor: '#051150',
+              });
+              return;
+            }
+            
+    e.stopPropagation()
     addItem({ id: producto.id, name: producto.nombre, price: producto.precio })
     Swal.fire({
       icon: 'success',
@@ -102,6 +120,15 @@ export default function Store() {
 
       <section className="cards-section">
         <h2 className="section-title">Juegos <span>Key</span></h2>
+
+        <div className='search-bar'>
+          <input
+            type="text"
+            placeholder="Buscar juegos..."
+            value={busqueda}
+            onChange={e => setBusqueda(e.target.value)}
+          />
+        </div>
 
         {loading && <p>Cargando productos...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}

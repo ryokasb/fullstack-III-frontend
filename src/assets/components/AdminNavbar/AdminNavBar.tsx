@@ -87,7 +87,7 @@ export default function AdminNavBar({ onLogout }: AdminNavBarProps) {
                 <div className='admin-navbar__config-menu'>
                   <button
                     className='admin-navbar__config-item'
-                    onClick={() => { navigate(''); setIsConfigOpen(false); }}
+                    onClick={() => { navigate('/user-profile'); setIsConfigOpen(false); }}
                   >
                     <span className='admin-navbar__config-icon'>👤</span>
                     Perfil usuario

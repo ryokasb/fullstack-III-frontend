@@ -156,7 +156,55 @@
   background: var(--navy-mid);
   color: var(--text);
 }
+/* ============================================================
+   SEARCH BAR
+   ============================================================ */
+.search-bar {
+  margin-bottom: 24px;
+  position: relative;
+}
 
+.search-bar input {
+  width: 30%;
+  padding: 11px 18px 11px 44px;
+  background: var(--navy-mid);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.search-bar input:hover {
+  border-color: var(--gold);
+  background: var(--navy-light);
+}
+
+.search-bar input:focus {
+  border-color: var(--gold);
+  background: var(--navy-light);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+}
+
+.search-bar::before {
+  content: '⌕';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 1.2rem;
+  pointer-events: none;
+  z-index: 1;
+}
 /* ============================================================
    CARDS SECTION
    ============================================================ */
