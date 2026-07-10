@@ -36,6 +36,7 @@ export interface Producto {
   descripcion: string;
   precio: number;
   stock: number;
+  imagen:string;
 }
 
 
@@ -90,4 +91,21 @@ export interface CartItem {
   nombre: string;
   precio: number;
   cantidad: number;
+}
+
+export interface PedidoDetalle {
+  id: number
+  productoId: number
+  cantidad: number
+  precioUnitario: number
+  claveJuego: string
+}
+
+export interface Pedido {
+  id: number
+  usuarioId: string // es el email del usuario
+  fechaCreacion: string // ISO string
+  estado: string // ej: 'PENDIENTE' | 'COMPLETADO' | 'CANCELADO'
+  total: number
+  detalles: PedidoDetalle[]
 }

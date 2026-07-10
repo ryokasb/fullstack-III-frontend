@@ -36,11 +36,25 @@ export const registro = async (data: Dtos.RegistroRequest): Promise<void> => {
   return handleResponse(response);
 };
 
+export const crearadmin = async (data: Dtos.RegistroRequest): Promise<void> => {
+  const response = await fetch(`${BASE_URL}/api/usuarios/registro/admin`, {
+    method: "POST",
+    headers: { ...authHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return handleResponse(response);
+};
+
 // ─── Helper para rutas privadas (agrega el JWT) ──────────────────
 
 const authHeaders = () => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
+// multipart :
+const authHeadersMultipart = () => ({
+  "Authorization": `Bearer ${localStorage.getItem("token")}`,
 });
 
 // ─── USUARIOS (rutas privadas) ───────────────────────────────────
@@ -124,14 +138,7 @@ export const getProductoBusqueda = async(busqueda:string):Promise<Dtos.Producto[
   return handleResponse(response);
 }
 
-export const createProducto = async (data: Dtos.CrearProducto): Promise<Dtos.Producto> => {
-  const response = await fetch(`${BASE_URL}/api/productos`, {
-    method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify(data),
-  });
-  return handleResponse(response);
-};
+
 
 export async function getProductoPorId(id: string): Promise<Dtos.Producto> {
   const response = await fetch(`${BASE_URL}/api/productos/${id}`)
@@ -147,23 +154,53 @@ export const eliminarProducto = async (id: number): Promise<void> => {
   return handleResponse(response);
 };
 
+export const createProducto = async (
+  data: Dtos.CrearProducto,
+  imagen?: File
+): Promise<Dtos.Producto> => {
+  const formData = new FormData();
+  formData.append(
+    "producto",
+    new Blob([JSON.stringify(data)], { type: "application/json" })
+  );
+  if (imagen) {
+    formData.append("imagen", imagen);
+  }
 
-export const actualizarStock = async (id: number, nuevoStock: number): Promise<Dtos.Producto> => {
-  const response = await fetch(`${BASE_URL}/api/productos/${id}/stock?nuevoStock=${nuevoStock}`, {
-    method: "PUT",
-    headers: authHeaders(),
+  const response = await fetch(`${BASE_URL}/api/productos`, {
+    method: "POST",
+    headers: authHeadersMultipart(), // sin Content-Type, el browser define el boundary
+    body: formData,
   });
   return handleResponse(response);
 };
 
-export const actualizarProducto = async (id: number, data: Partial<Dtos.Producto>): Promise<Dtos.Producto> => {
+export const actualizarStock = async (id: number, nuevoStock: number): Promise<Dtos.Producto> => {
+  const response = await fetch(`${BASE_URL}/api/productos/${id}/stock?nuevoStock=${nuevoStock}`, {
+    method: "PUT",
+    headers: authHeaders(), // esta no cambia, no maneja imagen
+  });
+  return handleResponse(response);
+};
+
+export const actualizarProducto = async (
+  id: number,
+  data: Partial<Dtos.Producto>,
+  imagen?: File
+): Promise<Dtos.Producto> => {
+  const formData = new FormData();
+  formData.append(
+    "producto",
+    new Blob([JSON.stringify(data)], { type: "application/json" })
+  );
+  if (imagen) {
+    formData.append("imagen", imagen);
+  }
+
   const response = await fetch(`${BASE_URL}/api/productos/${id}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
-    },
-    body: JSON.stringify(data),
+    headers: authHeadersMultipart(), // antes tenía Content-Type: application/json a mano — hay que quitarlo
+    body: formData,
   });
   return handleResponse(response);
 };

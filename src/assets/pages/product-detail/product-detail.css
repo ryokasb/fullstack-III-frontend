@@ -41,10 +41,11 @@
   font-family: 'DM Sans', sans-serif;
   color: var(--text);
 }
+
 /* ── Card Layout ──────────────────────────────────────────────── */
 .detalleproducto {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.8fr 1.2fr; /* ajustado: antes 1fr 1fr, ahora deja menos ancho a la imagen vertical */
   gap: 0;
   width: 100%;
   max-width: 1040px;
@@ -71,9 +72,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
+  padding: 2.5rem 2rem;
   overflow: hidden;
-  min-height: 460px;
+  min-height: 560px; /* ajustado: antes 460px, acompaña mejor el alto del 9:16 */
 }
 
 /* Radial glow behind image */
@@ -100,9 +101,11 @@
 .pd-imagen {
   position: relative;
   z-index: 1;
-  max-width: 100%;
-  max-height: 360px;
-  object-fit: contain;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
+  object-fit: contain;   /* antes: cover — ahora no recorta, muestra la imagen completa */
+  border-radius: var(--radius-md);
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 30px rgba(26, 58, 255, 0.3));
   transition: transform var(--transition), filter var(--transition);
 }
@@ -317,8 +320,12 @@
   }
 
   .pd-imagen-wrapper {
-    min-height: 280px;
+    min-height: 420px; /* ajustado: antes 280px, da espacio al 9:16 en columna única */
     padding: 2rem;
+  }
+
+  .pd-imagen {
+    max-width: 220px; /* ajustado: un poco más chica en mobile */
   }
 
   .pd-info {

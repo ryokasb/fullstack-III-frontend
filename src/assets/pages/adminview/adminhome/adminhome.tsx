@@ -1,6 +1,7 @@
 import './adminhome.css'
 import { useNavigate } from "react-router-dom";
 import { FaBoxOpen, FaUsers, FaShieldAlt, FaArrowRight } from "react-icons/fa";
+import { AiFillTags } from "react-icons/ai";
 
 export default function AdminHome() {
   const navigate = useNavigate();
@@ -22,6 +23,14 @@ export default function AdminHome() {
       label: 'Usuarios',
       description: 'Consulta y administra las cuentas registradas en la plataforma.',
       action: () => navigate('/usermanager'),
+      accent: '#00d4ff',
+      glow: 'rgba(0, 212, 255, 0.3)',
+    },
+     {
+      icon: <AiFillTags size={28} />,
+      label: 'Ventas',
+      description: 'Consulta y administra todas las ventas.',
+      action: () => navigate('/salesadministrator'),
       accent: '#00d4ff',
       glow: 'rgba(0, 212, 255, 0.3)',
     },

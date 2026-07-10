@@ -1,4 +1,3 @@
-
 .home {
   margin: 0;
   min-height: 100vh; /* ← esto en vez de height: 100% */
@@ -120,48 +119,54 @@
 
 .games-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(6, 1fr); /* ajustado: antes auto-fill minmax(180px, 1fr), ahora siempre 6 columnas fijas */
+  gap: 20px;
 }
-
 .game-card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 145, 0, 0.25);
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 14px;
+  padding: 14px;
   backdrop-filter: blur(8px);
   transition: 0.3s ease;
-  height: 500px;
+  min-height: 340px;
 
   display: flex;
   flex-direction: column;
+}
+
+.game-card img {
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 10px;
 }
 .game-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(255, 145, 0, 0.25);
 }
 
-.game-card img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
 
 .game-card h4 {
   color: white;
-  margin: 10px 0;
+  margin: 8px 0 4px; /* ajustado: antes 10px 0 */
+  font-size: 0.95rem; /* ajustado: nuevo, para acompañar la card más chica */
 }
 
 .game-card p {
   color: #ff9100;
   font-weight: bold;
+  font-size: 0.85rem; /* ajustado: nuevo */
 }
 
 .game-card button {
   margin-top: auto;
-  padding: 10px 20px;
+  padding: 8px 16px; /* ajustado: antes 10px 20px */
+  font-size: 0.85rem; /* ajustado: nuevo */
   border: none;
-  border-radius: 10px;
+  border-radius: 8px; /* ajustado: antes 10px */
   cursor: pointer;
 
   background: linear-gradient(
@@ -178,10 +183,9 @@
 /* ================= TABLET ================= */
 @media (max-width: 1024px) {
 
-  .games-container {
-    grid-template-columns: repeat(2, 1fr);
+   .games-container {
+    grid-template-columns: repeat(4, 1fr); /* ajustado: antes auto-fill minmax(150px, 1fr) */
   }
-
   #links {
     gap: 40px;
     flex-wrap: wrap;
@@ -272,17 +276,18 @@
   }
 
   .games-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* ajustado: antes auto-fill minmax(130px, 1fr) */
+    gap: 15px;
   }
 
   .game-card {
     height: auto;
-    min-height: 420px;
+    min-height: 280px; /* ajustado: antes 420px */
   }
 
   .game-card img {
-    max-height: 220px;
+    max-width: 130px; /* ajustado: nuevo, acompaña el tamaño de columna */
+    max-height: none; /* ajustado: quitado el max-height: 220px anterior, ya no aplica */
     object-fit: cover;
   }
 
@@ -304,9 +309,13 @@
     font-size: 14px;
   }
 
+ .games-container {
+    grid-template-columns: repeat(2, 1fr); /* esto ya lo tenías, se mantiene igual */
+  }
+
   .game-card {
-    min-height: 380px;
-    padding: 15px;
+    min-height: 260px; /* ajustado: antes 380px */
+    padding: 10px; /* ajustado: antes 15px */
   }
 
   .game-card button {

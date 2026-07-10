@@ -3,6 +3,7 @@ import logo from '../../img/logosmart.png';
 import { useNavigate } from "react-router-dom";
 import { FaGear } from "react-icons/fa6";
 import { FaUsers, FaBoxOpen, FaShieldAlt } from "react-icons/fa";
+import { AiFillTags } from "react-icons/ai";
 import { useRef, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
@@ -68,6 +69,10 @@ export default function AdminNavBar({ onLogout }: AdminNavBarProps) {
         <li className='admin-navbar__item' onClick={() => navigate("/productmanager")}>
           <FaBoxOpen size={16} />
           Productos
+        </li>
+        <li className='admin-navbar__item' onClick={() => navigate("/salesadministrator")}>
+          <AiFillTags size={16} />
+          Ventas
         </li>
       </ul>
 

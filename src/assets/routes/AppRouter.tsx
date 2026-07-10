@@ -15,6 +15,8 @@ import AdminHome from "../pages/adminview/adminhome/adminhome";
 import PasswordRecovery from "../pages/passwordRecovery/passwordrecovery";
 import CodeVerify from "../pages/codeVerify/codeVerify";
 import Userprofile from "../pages/userprofile/userprofile";
+import CodeManager from "../pages/adminview/salesadministrator/salesadminstrator";
+import SalesAdministrator from "../pages/adminview/salesadministrator/salesadminstrator";
 
 
 export const AppRouter = () => {
@@ -126,6 +128,17 @@ export const AppRouter = () => {
             <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <ProductManager />
+              </main>
+            </>
+          }
+        />
+         <Route
+          path="/salesadministrator"
+          element={
+            <>
+            <NavBarComponent onLogout={handleLogout} />
+              <main className="contenido">
+                <SalesAdministrator/>
               </main>
             </>
           }

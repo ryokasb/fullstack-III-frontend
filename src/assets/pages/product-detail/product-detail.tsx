@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getProductoPorId } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
-import { gameImages } from '../../utils/gameImage'
+
 import { useCart } from '../../hooks/UseCart'
 import Swal from 'sweetalert2'
 
@@ -73,7 +73,7 @@ export default function Productdetail() {
     )
   }
 
-  const imagenSrc = gameImages[producto.nombre] ?? gameImages['default']
+  const imagenSrc = "http://localhost:8080/uploads/productos/"
   const stockBajo = producto.stock <= 5
   const sinStock = producto.stock === 0
 
@@ -83,7 +83,7 @@ export default function Productdetail() {
 
         <div className="pd-imagen-wrapper">
           <img
-            src={imagenSrc}
+            src={imagenSrc + producto.imagen}
             alt={producto.nombre}
             className="pd-imagen"
           />

@@ -4,6 +4,8 @@ import { getProductos, actualizarProducto, createProducto, eliminarProducto } fr
 import type { Producto } from '../../../service/gateway/Dto/Dtos'
 import Swal from 'sweetalert2'
 
+const BASE_URL = "http://localhost:8080/uploads/productos/" 
+
 export default function ProductManager() {
   const [productos, setProductos] = useState<Producto[]>([])
   const [loading, setLoading] = useState(true)
@@ -14,6 +16,7 @@ export default function ProductManager() {
   const [newName, setName] = useState("")
   const [newDescription, setDescription] = useState("")
   const [newPrice, setPrice] = useState<number>(0)
+  const [newImagen, setNewImagen] = useState<File | null>(null)
 
   useEffect(() => {
     getProductos()
@@ -28,12 +31,14 @@ export default function ProductManager() {
     setDescription(producto.descripcion)
     setName(producto.nombre)
     setPrice(producto.precio)
+    setNewImagen(null)
     setAccion("")
   }
 
   const handleCancelEdit = () => {
     setEditingId(null)
     setAccion("")
+    setNewImagen(null)
   }
 
   const handleCrearProducto = async () => {
@@ -44,6 +49,9 @@ export default function ProductManager() {
         <input id="swal-descripcion" class="swal2-input" placeholder="Descripción" />
         <input id="swal-precio" class="swal2-input" type="number" min="0" placeholder="Precio" />
         <input id="swal-stock" class="swal2-input" type="number" min="0" placeholder="Stock" />
+        <br></br>
+        <a>se recompienda que la relacion de aspectos sea 9:16</a>
+        <input id="swal-imagen" class="swal2-file" type="file" accept="image/*" />
       `,
       confirmButtonText: 'Crear',
       confirmButtonColor: '#051150',
@@ -54,19 +62,23 @@ export default function ProductManager() {
         const descripcion = (document.getElementById('swal-descripcion') as HTMLInputElement).value.trim()
         const precio = Number((document.getElementById('swal-precio') as HTMLInputElement).value)
         const stock = Number((document.getElementById('swal-stock') as HTMLInputElement).value)
+        const imagenInput = document.getElementById('swal-imagen') as HTMLInputElement
+        const imagen = imagenInput.files?.[0] ?? null
 
         if (!nombre) return Swal.showValidationMessage('El nombre es obligatorio')
         if (precio <= 0) return Swal.showValidationMessage('El precio debe ser mayor a 0')
         if (stock < 0) return Swal.showValidationMessage('El stock no puede ser negativo')
 
-        return { nombre, descripcion, precio, stock }
+        return { nombre, descripcion, precio, stock, imagen }
       }
     })
 
     if (!formValues) return
 
+    const { imagen, ...datosProducto } = formValues
+
     try {
-      const nuevo = await createProducto(formValues)
+      const nuevo = await createProducto(datosProducto, imagen ?? undefined)
       setProductos(prev => [...prev, nuevo].sort((a, b) => a.id - b.id))
       Swal.fire({
         icon: 'success',
@@ -84,7 +96,8 @@ export default function ProductManager() {
       })
     }
   }
-   const handleEliminar = async (producto: Producto) => {
+
+  const handleEliminar = async (producto: Producto) => {
     const { isConfirmed } = await Swal.fire({
       icon: 'warning',
       title: '¿Eliminar producto?',
@@ -117,6 +130,27 @@ export default function ProductManager() {
     }
   }
 
+  const handlePreview = (producto: Producto) => {
+    if (!producto.imagen) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Sin imagen',
+        text: `${producto.nombre} no tiene una imagen cargada.`,
+        confirmButtonColor: '#051150',
+      })
+      return
+    }
+
+    Swal.fire({
+      title: producto.nombre,
+      imageUrl: `${BASE_URL}${producto.imagen}`,
+      imageAlt: producto.nombre,
+      imageWidth: 260,
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#051150',
+    })
+  }
+
   const handleSave = async (producto: Producto) => {
     if (!accion) {
       Swal.fire({
@@ -144,8 +178,18 @@ export default function ProductManager() {
       return
     }
 
+    if (accion === "imagen" && !newImagen) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selecciona una imagen',
+        text: 'Debes elegir un archivo antes de guardar.',
+        confirmButtonColor: '#051150',
+      })
+      return
+    }
+
     try {
-      const updated = await actualizarProducto(producto.id, payload)
+      const updated = await actualizarProducto(producto.id, payload, newImagen ?? undefined)
       setProductos(prev =>
         prev
           .map(p => p.id === producto.id ? { ...p, ...updated } : p)
@@ -153,6 +197,7 @@ export default function ProductManager() {
       )
       setEditingId(null)
       setAccion("")
+      setNewImagen(null)
       Swal.fire({
         icon: 'success',
         title: 'Producto actualizado',
@@ -273,17 +318,32 @@ export default function ProductManager() {
 
                   <td className="pm-cell--accion">
                     {isEditing(producto) ? (
-                      <select
-                        className="pm-select"
-                        value={accion}
-                        onChange={e => setAccion(e.target.value)}
-                      >
-                        <option value="">-- Campo --</option>
-                        <option value="nombre">Nombre</option>
-                        <option value="descripcion">Descripción</option>
-                        <option value="precio">Precio</option>
-                        <option value="stock">Stock</option>
-                      </select>
+                      <>
+                        <select
+                          className="pm-select"
+                          value={accion}
+                          onChange={e => {
+                            setAccion(e.target.value)
+                            setNewImagen(null)
+                          }}
+                        >
+                          <option value="">-- Campo --</option>
+                          <option value="nombre">Nombre</option>
+                          <option value="descripcion">Descripción</option>
+                          <option value="precio">Precio</option>
+                          <option value="stock">Stock</option>
+                          <option value="imagen">Imagen</option>
+                        </select>
+                        {accion === "imagen" && (
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="pm-file-input"
+                            onChange={e => setNewImagen(e.target.files?.[0] ?? null)}
+                            style={{ marginTop: "8px", display: "block" }}
+                          />
+                        )}
+                      </>
                     ) : (
                       <span className="pm-text-muted">—</span>
                     )}
@@ -301,15 +361,17 @@ export default function ProductManager() {
                       </div>
                     ) : (
                       <div>
-                      <button className="pm-btn pm-btn--edit" onClick={() => handleEditClick(producto)}>
-                        Editar
-                      </button>
-                       <button className="pm-btn pm-btn--delete" onClick={() => handleEliminar(producto)} style={{marginLeft:"15px"}}>
-                        Eliminar
-                       </button>
-                       </div>
+                        <button className="pm-btn pm-btn--preview" onClick={() => handlePreview(producto)}>
+                          Ver imagen
+                        </button>
+                        <button className="pm-btn pm-btn--edit" onClick={() => handleEditClick(producto)} style={{marginLeft:"15px"}}>
+                          Editar
+                        </button>
+                        <button className="pm-btn pm-btn--delete" onClick={() => handleEliminar(producto)} style={{marginLeft:"15px"}}>
+                          Eliminar
+                        </button>
+                      </div>
                     )}
-                   
                   </td>
                 </tr>
               ))}

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Ofertalogo from "../../img/iconos-links/ofertas-logo.png";
 import Nllogo from "../../img/iconos-links/nl-logo.png";
 import Jplogo from "../../img/iconos-links/jp-logo.png";
-import { gameImages } from '../../utils/gameImage'
+
 
 export default function Home() {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ export default function Home() {
       .then(productos => {
         const top = [...productos]
           .sort((a, b) => b.precio - a.precio)
-          .slice(0, 4) // los 4 más caros
+          .slice(0, 6) // los 4 más caros
         setDestacados(top)
       })
       .catch(() => console.error("Error al cargar destacados"))
@@ -59,7 +59,7 @@ export default function Home() {
               destacados.map(producto => (
                 <div key={producto.id} className="game-card">
                   <img
-                                src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}
+                                src={`http://localhost:8080/uploads/productos/` + producto.imagen}
                                 alt={producto.nombre}
                              />
                   <h4>{producto.nombre}</h4>

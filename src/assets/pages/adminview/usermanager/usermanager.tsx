@@ -1,6 +1,6 @@
 import './usermanager.css'
 import { useEffect, useState } from 'react'
-import { getUsuarios, toggleActivarUsuario, registro} from '../../../service/gateway/gatewayService'
+import { getUsuarios, toggleActivarUsuario, registro, crearadmin } from '../../../service/gateway/gatewayService'
 import type { Usuario } from '../../../service/gateway/Dto/Dtos'
 import Swal from 'sweetalert2'
 
@@ -71,7 +71,7 @@ export default function UserManager() {
  const handleCrearUsuario = async () => {
   const disparar = async (valores?: any) => {
     const { value: formValues } = await Swal.fire({
-      title: 'Nuevo usuario',
+      title: 'Nuevo usuario administrador',
       html: `
         <input id="swal-nombre" class="swal2-input" placeholder="Nombre" value="${valores?.nombre || ''}" />
         <input id="swal-correo" class="swal2-input" type="email" placeholder="Correo electrónico" value="${valores?.correo || ''}" />
@@ -98,7 +98,7 @@ export default function UserManager() {
     if (!formValues) return
 
     try {
-      await registro(formValues)
+      await crearadmin(formValues)
       const data = await getUsuarios()
       setUsuarios(data.sort((a: Usuario, b: Usuario) => a.id - b.id))
       Swal.fire({
@@ -121,7 +121,7 @@ export default function UserManager() {
         <h1 className="um-title">Gestión de Usuarios</h1>
         <p className="um-subtitle">{usuarios.length} usuarios registrados</p>
       </header>
-      <button className='btn_newUser' onClick={handleCrearUsuario} >Agregar nuevo usuario</button>
+      <button className='btn_newUser' onClick={handleCrearUsuario} >Agregar nuevo admin</button>
       {loading && <p className="um-status">Cargando usuarios...</p>}
       {error && <p className="um-status um-status--error">{error}</p>}
 

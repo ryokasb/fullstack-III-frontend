@@ -1,0 +1,277 @@
+
+.salesadministrator {
+  padding: 2rem;
+  min-height: 100vh;
+  background: #060d20;
+  color: #e8e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sa-header {
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #c9a227;
+  padding-left: 1rem;
+}
+
+.sa-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.sa-subtitle {
+  font-size: 0.875rem;
+  color: #888;
+  margin: 0;
+}
+
+/* Filters */
+.sa-filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.sa-search {
+  flex: 1;
+  min-width: 220px;
+  padding: 0.5rem 0.75rem;
+  background: #0a1433;
+  border: 1px solid #1a2540;
+  border-radius: 6px;
+  color: #e8e8f0;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.sa-search:focus {
+  border-color: #c9a227;
+}
+
+.sa-select {
+  padding: 0.5rem 0.75rem;
+  background: #0a1433;
+  border: 1px solid #1a2540;
+  border-radius: 6px;
+  color: #e8e8f0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.sa-select:focus {
+  border-color: #c9a227;
+}
+
+/* Status messages */
+.sa-status {
+  text-align: center;
+  color: #aaa;
+  padding: 2rem;
+}
+.sa-status--error {
+  color: #e05c5c;
+}
+
+.sa-empty {
+  text-align: center;
+  color: #667;
+  padding: 1.5rem;
+}
+
+/* Table wrapper */
+.sa-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #1a2540;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.sa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 800px;
+}
+
+.sa-table thead tr {
+  background: #0b1635;
+  border-bottom: 2px solid #c9a227;
+}
+
+.sa-table th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #c9a227;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.sa-table tbody tr {
+  border-bottom: 1px solid #111d36;
+  transition: background 0.15s;
+}
+
+.sa-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.sa-table tbody tr:hover {
+  background: #0d1a30;
+}
+
+.sa-row--cancelado {
+  opacity: 0.55;
+}
+
+.sa-row--expanded td {
+  padding: 0;
+  background: #08122a;
+}
+
+.sa-table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+
+/* Cells */
+.sa-cell--id {
+  color: #556;
+  font-size: 0.78rem;
+  font-family: monospace;
+}
+
+.sa-cell--user {
+  font-weight: 600;
+  color: #e8e8f0;
+}
+
+.sa-cell--date {
+  color: #8899aa;
+  white-space: nowrap;
+}
+
+.sa-cell--total {
+  font-weight: 600;
+  color: #c9a227;
+  white-space: nowrap;
+}
+
+.sa-cell--action {
+  white-space: nowrap;
+}
+
+.sa-btn-link {
+  background: none;
+  border: none;
+  color: #7fb3ff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+}
+.sa-btn-link:hover {
+  text-decoration: underline;
+}
+
+/* Detail panel */
+.sa-detail-panel {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px dashed #1a2540;
+}
+
+.sa-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  font-size: 0.82rem;
+  color: #a8b0c0;
+  border-bottom: 1px solid #101a30;
+}
+.sa-detail-item:last-child {
+  border-bottom: none;
+}
+
+/* Status tags */
+.sa-status-tag {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.sa-status-tag--pendiente {
+  background: #251e00;
+  color: #f0b429;
+  border: 1px solid #4a3800;
+}
+
+.sa-status-tag--pagado {
+  background: #0b2e1e;
+  color: #64d6a4;
+  border: 1px solid #145e34;
+}
+
+.sa-status-tag--enviado {
+  background: #0e2240;
+  color: #7fb3ff;
+  border: 1px solid #1e4060;
+}
+
+.sa-status-tag--cancelado {
+  background: #200a0a;
+  color: #e05c5c;
+  border: 1px solid #5c1c1c;
+}
+
+/* Buttons */
+.sa-btn {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.sa-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.sa-btn--view {
+  background: #051150;
+  color: #c9a227;
+  border: 1px solid #1a2e70;
+}
+.sa-detail-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sa-detail-clave {
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: #8899aa;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sa-btn-eye {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  line-height: 1;
+}

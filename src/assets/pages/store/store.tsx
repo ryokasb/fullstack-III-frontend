@@ -2,7 +2,6 @@ import './store.css'
 import { useEffect, useState } from 'react'
 import { getProductos } from '../../service/gateway/gatewayService'
 import type { Producto } from '../../service/gateway/Dto/Dtos'
-import { gameImages } from '../../utils/gameImage'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../hooks/UseCart'
 import Swal from 'sweetalert2'
@@ -142,7 +141,7 @@ export default function Store() {
             >
               <div className="card__img-wrap">
                 <img
-                  src={gameImages[producto.nombre] || `https://placehold.co/300x400/0a1433/c9a227?text=${encodeURIComponent(producto.nombre)}`}
+                  src={`http://localhost:8080/uploads/productos/` + producto.imagen}
                   alt={producto.nombre}
                 />
                 {producto.stock === 0 && (
