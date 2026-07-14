@@ -1,67 +1,148 @@
 .login {
     min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 40px 90px;
+    padding: 40px 20px;
 
-    background: linear-gradient(
-        135deg,
-        #04071b,
-        #13256d,
-        #04071b
-    );
+    background: linear-gradient(135deg, #04071b, #13256d, #04071b);
 }
 
-.logo-gog {
-    height: 150px;
+.login-card {
+    display: flex;
+    width: 960px;
+    max-width: 95vw;
+    min-height: 540px;
     border-radius: 20px;
-    cursor: pointer;
+    overflow: hidden;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,0.5),
+        0 0 20px rgba(255,145,0,0.08);
 }
 
-.login-form {
-    width: 500px;
-    padding: 60px 35px;
+/* ===== PANEL IZQUIERDO — visual/branding ===== */
+.login-visual {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
 
-    background: rgba(15, 20, 45, 0.95);
-    border: 1px solid rgba(255, 145, 0, 0.35);
+    background: linear-gradient(160deg, #13256d 0%, #04071b 100%);
+}
+
+.login-visual::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,145,0,0.15) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+}
+
+.login-visual .logo-gog {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
     border-radius: 18px;
+    border: 2px solid rgba(255, 145, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 145, 0, 0.35);
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+.login-visual .logo-gog:hover {
+    transform: translateY(-2px) scale(1.03);
+}
+
+.login-visual h3 {
+    color: white;
+    font-size: 26px;
+    margin: 0;
+    max-width: 320px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-visual > p {
+    color: #b7bdd6;
+    font-size: 14px;
+    margin: 0;
+    max-width: 300px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== PANEL DERECHO — formulario ===== */
+.login-form {
+    flex: 1.15;
+    padding: 65px 55px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: center;
+    position: relative;
 
-    box-shadow:
-        0 0 25px rgba(0,0,0,0.45),
-        0 0 12px rgba(255,145,0,0.08);
+    background: rgba(15, 20, 45, 0.97);
+}
+
+/* borde en degradado: se desvanece arriba y abajo, visible al centro */
+.login-form::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 145, 0, 0.35) 30%,
+        rgba(255, 145, 0, 0.35) 70%,
+        transparent 100%
+    );
 }
 
 .login-form h2 {
     color: white;
     margin: 0;
-    font-size: 30px;
+    font-size: 28px;
+    letter-spacing: 0.5px;
 }
 
-.login-form p {
+.login-form .login-subtitle {
     color: #b7bdd6;
-    margin: 0;
-    font-size: 15px;
+    margin: 0 0 5px;
+    font-size: 14px;
 }
 
 .login-form input {
     height: 52px;
     padding: 0 16px;
 
-    border: none;
+    border: 1px solid rgba(255, 145, 0, 0.15);
     border-radius: 10px;
 
     background: #1b2554;
     color: white;
     font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .login-form input:focus {
-    outline: 2px solid #ff9100;
+    outline: none;
+    border-color: #ff9100;
+    box-shadow: 0 0 0 3px rgba(255,145,0,0.15);
 }
 
 .login-form button {
@@ -73,32 +154,52 @@
     font-size: 16px;
     font-weight: bold;
     color: white;
+    letter-spacing: 0.3px;
 
-    background: linear-gradient(
-        to right,
-        #794705 0%,
-        #ff9100 50%,
-        #794705 100%
-    );
-
+    background: linear-gradient(to right, #794705 0%, #ff9100 50%, #794705 100%);
     transition: 0.3s;
 }
 
-.login-form button:hover {
+.login-form button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(255,145,0,0.25);
 }
 
-.crear-cuenta{
+.login-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error-msg {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin: 0;
+}
+
+.crear-cuenta {
     display: flex;
-    gap:5px;
+    gap: 5px;
+    color: #b7bdd6;
+    font-size: 14px;
+    margin: 0;
 }
-.btn-crearcuenta{
- color: rgb(255, 251, 0);
+
+.crear-cuenta p {
+    margin: 0;
 }
-.btn-crearcuenta:hover{
- cursor: pointer;
- color: #38bdf8;
+
+.recuperar-contraseña {
+    margin: 0;
+}
+
+.btn-crearcuenta {
+    color: #ff9100;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-crearcuenta:hover {
+    color: #ffb84d;
 }
 
 .input-eye {
@@ -116,11 +217,50 @@
   position: absolute;
   right: 0.75rem;
   cursor: pointer;
-  color: #aaa;
+  color: #7d84a6;
   display: flex;
   align-items: center;
+  transition: color 0.2s;
 }
 
 .input-eye span:hover {
-  color: #051150;
+  color: #ff9100;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .login-visual {
+        padding: 40px 30px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .login-form::before {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 1px;
+
+        background: linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(255, 145, 0, 0.35) 30%,
+            rgba(255, 145, 0, 0.35) 70%,
+            transparent 100%
+        );
+    }
+
+    .login-visual h3,
+    .login-visual > p {
+        max-width: 100%;
+    }
+
+    .login-form {
+        padding: 45px 30px;
+    }
 }

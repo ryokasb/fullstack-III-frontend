@@ -42,74 +42,88 @@ export default function Register() {
         confirmButtonColor: '#051150'
       });
     } finally {
-      setLoading(false); // siempre se ejecuta, con éxito o error
+      setLoading(false);
     }
-
   };
 
   return (
     <main className="register">
-      <img onClick={() => navigate("/")} className="logo-gog" src={Logo} alt="logo" />
+      <div className="login-card">
 
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Bienvenido</h2>
-        <p>Ingresa tus datos</p>
+        {/* PANEL IZQUIERDO */}
+        <div className="login-visual">
+          <img
+            onClick={() => navigate("/")}
+            className="logo-gog"
+            src={Logo}
+            alt="logo"
+          />
+          <h3>Únete a la comunidad</h3>
+          <p>Crea tu cuenta y accede a todo el catálogo de God of Games</p>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
-          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
-          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
-          required
-        />
+        {/* PANEL DERECHO */}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2>Bienvenido</h2>
+          <p className="login-subtitle">Ingresa tus datos</p>
 
-        {/* Contraseña */}
-        <div className="input-eye">
           <input
-            type={verContraseña ? "text" : "password"}
-            placeholder="Contraseña"
-            value={contrasena}
-            onChange={(e) => setContraseña(e.target.value)}
+            type="text"
+            placeholder="Nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
             required
           />
-          <span onClick={() => setVerContraseña(prev => !prev)}>
-            {verContraseña ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
-
-        {/* Repetir contraseña */}
-        <div className="input-eye">
           <input
-            type={verRepetir ? "text" : "password"}
-            placeholder="Repetir contraseña"
-            value={repetirContraseña}
-            onChange={(e) => setRepetirContraseña(e.target.value)}
+            type="email"
+            placeholder="Correo electrónico"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
+            onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
             required
           />
-          <span onClick={() => setVerRepetir(prev => !prev)}>
-            {verRepetir ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Registrando..." : "Registrar"}
-        </button>
+          {/* Contraseña */}
+          <div className="input-eye">
+            <input
+              type={verContraseña ? "text" : "password"}
+              placeholder="Contraseña"
+              value={contrasena}
+              onChange={(e) => setContraseña(e.target.value)}
+              required
+            />
+            <span onClick={() => setVerContraseña(prev => !prev)}>
+              {verContraseña ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
-        <div className='crear-cuenta'>
-          <p>¿ya tienes una cuenta?</p>
-          <a className='btn-crearcuenta' onClick={() => navigate("/login")}>inicia sesion</a>
-        </div>
-      </form>
+          {/* Repetir contraseña */}
+          <div className="input-eye">
+            <input
+              type={verRepetir ? "text" : "password"}
+              placeholder="Repetir contraseña"
+              value={repetirContraseña}
+              onChange={(e) => setRepetirContraseña(e.target.value)}
+              required
+            />
+            <span onClick={() => setVerRepetir(prev => !prev)}>
+              {verRepetir ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Registrando..." : "Registrar"}
+          </button>
+
+          <div className='crear-cuenta'>
+            <p>¿ya tienes una cuenta?</p>
+            <a className='btn-crearcuenta' onClick={() => navigate("/login")}>inicia sesion</a>
+          </div>
+        </form>
+
+      </div>
     </main>
   );
 }

@@ -28,11 +28,11 @@ export default function Login({ onLogin }: LoginProps) {
       localStorage.setItem("usuario", JSON.stringify(res.usuario));
       localStorage.setItem("rol", res.usuario.rol);
 
-      onLogin(); 
+      onLogin();
 
       navigate("/");
     } catch (err: any) {
-      setError( err.message || "Correo o contraseña incorrectos");
+      setError(err.message || "Correo o contraseña incorrectos");
     } finally {
       setLoading(false);
     }
@@ -40,52 +40,67 @@ export default function Login({ onLogin }: LoginProps) {
 
   return (
     <main className="login">
-      <img onClick={() => navigate("/")} className="logo-gog" src={Logo} alt="logo" />
+      <div className="login-card">
 
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Bienvenido</h2>
-        <p>Inicia sesión para continuar</p>
+        {/* PANEL IZQUIERDO */}
+        <div className="login-visual">
+          <img
+            onClick={() => navigate("/")}
+            className="logo-gog"
+            src={Logo}
+            alt="logo"
+          />
+          <h3>Domina tu próxima partida</h3>
+          <p>Compra, gestiona y revela tus claves de juego en un solo lugar</p>
+        </div>
 
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
-          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
-          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
-          required
-        />
+        {/* PANEL DERECHO */}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2>Bienvenido</h2>
+          <p className="login-subtitle">Inicia sesión para continuar</p>
 
-        <div className="input-eye">
           <input
-            type={verContraseña ? "text" : "password"}
-            placeholder="Contraseña"
-            value={contraseña}
-            onChange={(e) => setContraseña(e.target.value)}
+            type="email"
+            placeholder="Correo electrónico"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity('Ingresa un email válido')}
+            onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
             required
           />
-          <span onClick={() => setVerContraseña(prev => !prev)}>
-            {verContraseña ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
 
-        {error && <p className="error-msg">{error}</p>}
+          <div className="input-eye">
+            <input
+              type={verContraseña ? "text" : "password"}
+              placeholder="Contraseña"
+              value={contraseña}
+              onChange={(e) => setContraseña(e.target.value)}
+              required
+            />
+            <span onClick={() => setVerContraseña(prev => !prev)}>
+              {verContraseña ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Cargando..." : "Ingresar"}
-        </button>
+          {error && <p className="error-msg">{error}</p>}
 
-        <div className='crear-cuenta'>
-          <p>¿nuevo usuario?</p>
-          <a className='btn-crearcuenta' onClick={() => navigate("/register")}>
-            Crea una cuenta
-          </a>
-        </div>
-        <div className='recuperar-contraseña'>
-          <a className='btn-crearcuenta' onClick={() => navigate("/password-recovery")}>¿Olvidaste tu contraseña?</a>
-        </div>
-      </form>
+          <button type="submit" disabled={loading}>
+            {loading ? "Cargando..." : "Ingresar"}
+          </button>
+
+          <div className='crear-cuenta'>
+            <p>¿nuevo usuario?</p>
+            <a className='btn-crearcuenta' onClick={() => navigate("/register")}>
+              Crea una cuenta
+            </a>
+          </div>
+          <div className='recuperar-contraseña'>
+            <a className='btn-crearcuenta' onClick={() => navigate("/password-recovery")}>¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+
+      </div>
     </main>
   );
 }

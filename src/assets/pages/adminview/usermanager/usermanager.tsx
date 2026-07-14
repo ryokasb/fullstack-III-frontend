@@ -1,6 +1,6 @@
 import './usermanager.css'
 import { useEffect, useState } from 'react'
-import { getUsuarios, toggleActivarUsuario, registro, crearadmin } from '../../../service/gateway/gatewayService'
+import { getUsuarios, toggleActivarUsuario, crearadmin } from '../../../service/gateway/gatewayService'
 import type { Usuario } from '../../../service/gateway/Dto/Dtos'
 import Swal from 'sweetalert2'
 

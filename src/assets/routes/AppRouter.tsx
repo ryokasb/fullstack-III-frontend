@@ -15,7 +15,6 @@ import AdminHome from "../pages/adminview/adminhome/adminhome";
 import PasswordRecovery from "../pages/passwordRecovery/passwordrecovery";
 import CodeVerify from "../pages/codeVerify/codeVerify";
 import Userprofile from "../pages/userprofile/userprofile";
-import CodeManager from "../pages/adminview/salesadministrator/salesadminstrator";
 import SalesAdministrator from "../pages/adminview/salesadministrator/salesadminstrator";
 
 

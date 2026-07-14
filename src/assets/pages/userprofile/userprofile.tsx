@@ -1,9 +1,11 @@
 import './userprofile.css'
 import { useNavigate } from 'react-router-dom'
-import { FaUser, FaLock, FaChevronRight } from 'react-icons/fa'
+import { FaUser, FaLock, FaSignOutAlt } from 'react-icons/fa'
 import { useState } from 'react'
 import { actualizarUsuario, cambiarContrasenaSinCodigo } from '../../service/gateway/gatewayService'
 import Swal from 'sweetalert2'
+
+type Seccion = 'perfil' | 'seguridad'
 
 export default function Userprofile() {
   const navigate = useNavigate()
@@ -12,8 +14,7 @@ export default function Userprofile() {
     ? usuario.nombre.split(' ').map((n: string) => n[0]).slice(0, 2).join('').toUpperCase()
     : '?'
 
-  const [modalPerfil, setModalPerfil] = useState(false)
-  const [modalSeguridad, setModalSeguridad] = useState(false)
+  const [seccionActiva, setSeccionActiva] = useState<Seccion>('perfil')
 
   const [nombre, setNombre] = useState(usuario.nombre || '')
   const [correo, setCorreo] = useState(usuario.correo || '')
@@ -33,7 +34,6 @@ export default function Userprofile() {
     setLoading(true)
     try {
       await actualizarUsuario(usuario.id, { nombre, correo })
-      setModalPerfil(false)
       await Swal.fire({
         icon: 'success',
         title: 'Perfil actualizado',
@@ -62,7 +62,6 @@ export default function Userprofile() {
         contrasenaActual,
         nuevaContrasena,
       })
-      setModalSeguridad(false)
       await Swal.fire({
         icon: 'success',
         title: 'Contraseña actualizada',
@@ -80,73 +79,95 @@ export default function Userprofile() {
 
   return (
     <main className="userprofile">
-      <div className="up-hero">
-        <div className="up-avatar">{iniciales}</div>
-        <p className="up-name">{usuario.nombre || 'Usuario'}</p>
-        <p className="up-email">{usuario.correo || ''}</p>
-        <span className="up-rol">{usuario.rol || 'Cliente'}</span>
-      </div>
+      <div className="up-layout">
 
-      <div className="up-cards">
-        <div className="up-card" onClick={() => setModalPerfil(true)}>
-          <div className="up-card-icon"><FaUser /></div>
-          <p className="up-card-title">Perfil</p>
-          <p className="up-card-desc">Nombre y correo electrónico</p>
-          <FaChevronRight className="up-card-arrow" />
-        </div>
-        <div className="up-card" onClick={() => setModalSeguridad(true)}>
-          <div className="up-card-icon"><FaLock /></div>
-          <p className="up-card-title">Seguridad</p>
-          <p className="up-card-desc">Contraseña y acceso</p>
-          <FaChevronRight className="up-card-arrow" />
-        </div>
-      </div>
-
-      {modalPerfil && (
-        <div className="modal-overlay" onClick={() => setModalPerfil(false)}>
-          <div className="modal-box" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 className="modal-title">Editar perfil</h3>
-            </div>
-            <div className="modal-field">
-              <label className="modal-label">Nombre</label>
-              <input className="modal-input" type="text" value={nombre} onChange={e => setNombre(e.target.value)} />
-            </div>
-            <div className="modal-field">
-              <label className="modal-label">Correo</label>
-              <input className="modal-input" type="email" value={correo} onChange={e => setCorreo(e.target.value)} />
-            </div>
-            <button className="modal-btn" onClick={handleGuardarPerfil} disabled={loading}>
-              {loading ? 'Guardando...' : 'Guardar cambios'}
-            </button>
+        {/* ASIDE */}
+        <aside className="up-aside">
+          <div className="up-hero">
+            <div className="up-avatar">{iniciales}</div>
+            <p className="up-name">{usuario.nombre || 'Usuario'}</p>
+            <p className="up-email">{usuario.correo || ''}</p>
+            <span className="up-rol">{usuario.rol || 'Cliente'}</span>
           </div>
-        </div>
-      )}
 
-      {modalSeguridad && (
-        <div className="modal-overlay" onClick={() => setModalSeguridad(false)}>
-          <div className="modal-box" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 className="modal-title">Cambiar contraseña</h3>
-            </div>
-            <div className="modal-field">
-              <label className="modal-label">Contraseña actual</label>
-              <input className="modal-input" type="password" placeholder="••••••••" value={contrasenaActual} onChange={e => setContrasenaActual(e.target.value)} />
-            </div>
-            <div className="modal-field">
-              <label className="modal-label">Nueva contraseña</label>
-              <input className="modal-input" type="password" placeholder="••••••••" value={nuevaContrasena} onChange={e => setNuevaContrasena(e.target.value)} />
-            </div>
-            <div className="modal-field">
-              <label className="modal-label">Repetir contraseña</label>
-              <input className="modal-input" type="password" placeholder="••••••••" value={repetirContrasena} onChange={e => setRepetirContrasena(e.target.value)} />
-            </div>
-            <button className="modal-btn" onClick={handleGuardarContrasena} disabled={loading}>
-              {loading ? 'Guardando...' : 'Guardar cambios'}
+          <nav className="up-nav">
+            <button
+              className={`up-nav-item ${seccionActiva === 'perfil' ? 'active' : ''}`}
+              onClick={() => setSeccionActiva('perfil')}
+            >
+              <FaUser className="up-nav-icon" />
+              Perfil
             </button>
-          </div>
-        </div>
-      )}
+            <button
+              className={`up-nav-item ${seccionActiva === 'seguridad' ? 'active' : ''}`}
+              onClick={() => setSeccionActiva('seguridad')}
+            >
+              <FaLock className="up-nav-icon" />
+              Seguridad
+            </button>
+          </nav>
+
+          <button className="up-logout" onClick={cerrarSesion}>
+            <FaSignOutAlt />
+            Cerrar sesión
+          </button>
+        </aside>
+
+        {/* PANEL DERECHO */}
+        <section className="up-panel">
+          {seccionActiva === 'perfil' && (
+            <div className="up-panel-section">
+              <div className="up-panel-header">
+                <h3>Perfil</h3>
+                <p>Actualiza tu nombre y correo electrónico</p>
+              </div>
+
+              <div className="up-field">
+                <label>Nombre</label>
+                <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} />
+              </div>
+
+              <div className="up-field">
+                <label>Correo electrónico</label>
+                <input type="email" value={correo} onChange={e => setCorreo(e.target.value)} />
+              </div>
+
+              <button className="up-save-btn" onClick={handleGuardarPerfil} disabled={loading}>
+                {loading ? 'Guardando...' : 'Guardar cambios'}
+              </button>
+            </div>
+          )}
+
+          {seccionActiva === 'seguridad' && (
+            <div className="up-panel-section">
+              <div className="up-panel-header">
+                <h3>Seguridad</h3>
+                <p>Cambia tu contraseña de acceso</p>
+              </div>
+
+              <div className="up-field">
+                <label>Contraseña actual</label>
+                <input type="password" placeholder="••••••••" value={contrasenaActual} onChange={e => setContrasenaActual(e.target.value)} />
+              </div>
+
+              <div className="up-field">
+                <label>Nueva contraseña</label>
+                <input type="password" placeholder="••••••••" value={nuevaContrasena} onChange={e => setNuevaContrasena(e.target.value)} />
+              </div>
+
+              <div className="up-field">
+                <label>Repetir contraseña</label>
+                <input type="password" placeholder="••••••••" value={repetirContrasena} onChange={e => setRepetirContrasena(e.target.value)} />
+              </div>
+
+              <button className="up-save-btn" onClick={handleGuardarContrasena} disabled={loading}>
+                {loading ? 'Guardando...' : 'Guardar cambios'}
+              </button>
+            </div>
+          )}
+        </section>
+
+      </div>
     </main>
   )
 }
