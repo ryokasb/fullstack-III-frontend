@@ -50,8 +50,8 @@ export default function Login({ onLogin }: LoginProps) {
             src={Logo}
             alt="logo"
           />
-          <h3>Domina tu próxima partida</h3>
-          <p>Compra, gestiona y revela tus claves de juego en un solo lugar</p>
+          <h3>Bienvenido a God of Games</h3>
+          <p></p>
         </div>
 
         {/* PANEL DERECHO */}

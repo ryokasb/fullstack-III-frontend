@@ -58,7 +58,7 @@ export default function Register() {
             src={Logo}
             alt="logo"
           />
-          <h3>Únete a la comunidad</h3>
+          <h3>Únete a God of Games</h3>
           <p>Crea tu cuenta y accede a todo el catálogo de God of Games</p>
         </div>
 
