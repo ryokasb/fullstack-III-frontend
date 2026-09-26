@@ -16,10 +16,16 @@ import PasswordRecovery from "../pages/passwordRecovery/passwordrecovery";
 import CodeVerify from "../pages/codeVerify/codeVerify";
 import Userprofile from "../pages/userprofile/userprofile";
 import SalesAdministrator from "../pages/adminview/salesadministrator/salesadminstrator";
+import PrivateRoute from "./PrivateRoute";
+import Error404page from "../pages/error404page/error404page";
 
+interface Usuario {
+  rol: string;
+  [key: string]: unknown;
+}
 
 export const AppRouter = () => {
-  const [usuario, setUsuario] = useState(() => {
+  const [usuario, setUsuario] = useState<Usuario | null>(() => {
     const usuarioGuardado = localStorage.getItem("usuario");
     return usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
   });
@@ -44,8 +50,7 @@ export const AppRouter = () => {
   };
 
   const NavBarComponent = usuario?.rol === "ADMIN" ? AdminNavBar : NavBar;
-  const HomeComponent = usuario?.rol === "ADMIN" ? AdminHome: Home;
-
+  const HomeComponent = usuario?.rol === "ADMIN" ? AdminHome : Home;
 
   return (
     <>
@@ -62,10 +67,8 @@ export const AppRouter = () => {
             </>
           }
         />
-        <Route
-          path="/Login"
-          element={<Login onLogin={handleLogin} />}
-        />
+        <Route path="/Login" element={<Login onLogin={handleLogin} />} />
+
         <Route
           path="/Games"
           element={
@@ -93,7 +96,7 @@ export const AppRouter = () => {
             <>
               <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
-                <Productdetail/>
+                <Productdetail />
               </main>
             </>
           }
@@ -101,53 +104,63 @@ export const AppRouter = () => {
         <Route
           path="/mis-compras"
           element={
-            <>
-            <NavBarComponent onLogout={handleLogout} />
+            <PrivateRoute>
+              <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <PurchasingManager />
               </main>
-            </>
+            </PrivateRoute>
           }
         />
         <Route
           path="/usermanager"
           element={
-            <>
-            <NavBarComponent onLogout={handleLogout} />
+            <PrivateRoute rolesPermitidos={["ADMIN"]}>
+              <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <UserManager />
               </main>
-            </>
+            </PrivateRoute>
           }
         />
-          <Route
+        <Route
           path="/productmanager"
           element={
-            <>
-            <NavBarComponent onLogout={handleLogout} />
+            <PrivateRoute rolesPermitidos={["ADMIN"]}>
+              <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <ProductManager />
               </main>
-            </>
+            </PrivateRoute>
           }
         />
-         <Route
+        <Route
           path="/salesadministrator"
           element={
-            <>
-            <NavBarComponent onLogout={handleLogout} />
+            <PrivateRoute rolesPermitidos={["ADMIN"]}>
+              <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
-                <SalesAdministrator/>
+                <SalesAdministrator />
               </main>
-            </>
+            </PrivateRoute>
           }
         />
-         <Route
+        <Route
           path="/password-recovery"
           element={
             <>
               <main className="contenido">
                 <PasswordRecovery />
+              </main>
+            </>
+          }
+        />
+         <Route
+          path="/error"
+          element={
+            <>
+              <main className="contenido">
+                <Error404page/>
               </main>
             </>
           }
@@ -161,21 +174,23 @@ export const AppRouter = () => {
               </main>
             </>
           }
+          
+          
         />
         <Route
           path="/user-profile"
           element={
-            <>
+            <PrivateRoute>
               <NavBarComponent onLogout={handleLogout} />
               <main className="contenido">
                 <Userprofile />
               </main>
-            </>
+            </PrivateRoute>
           }
         />
-        
-       
       </Routes>
+      
+      
     </>
   );
 };
